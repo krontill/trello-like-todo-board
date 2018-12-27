@@ -1,0 +1,12 @@
+.logo {
+    width: 80px;
+    height: 30px;
+    opacity: .5;
+    margin-top: 4px;
+    transition: opacity .1s ease;
+}
+
+.logo:hover,
+.logo:focus {
+    opacity: .8;
+}
