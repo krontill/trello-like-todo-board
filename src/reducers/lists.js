@@ -6,7 +6,7 @@ const initialState = [
   {
     id: uuidv4(),
     title: 'To Do',
-    list: [
+    cards: [
       {
         title: 'Title Card',
         text: 'Text Card',

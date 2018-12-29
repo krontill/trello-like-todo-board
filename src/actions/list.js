@@ -7,7 +7,7 @@ export const addList = () => ({
   payload: {
     id: uuidv4(),
     title: null,
-    list: [],
+    cards: [],
   },
 });
 export const removeList = listId => ({ type: REMOVE_LIST, payload: listId });

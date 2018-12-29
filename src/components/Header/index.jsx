@@ -4,10 +4,10 @@ import IconButton from '@material-ui/core/IconButton';
 import AddBox from '@material-ui/icons/AddBox';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Logo from '../Logo/Logo';
+import Logo from '../Logo';
 import { addList } from '../../actions/list';
 
-const header = props => {
+const Header = props => {
   const { handleAddList } = props;
   return (
     <header className="header">
@@ -22,7 +22,7 @@ const header = props => {
   );
 };
 
-header.propTypes = {
+Header.propTypes = {
   handleAddList: PropTypes.func.isRequired,
 };
 
@@ -35,4 +35,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(header);
+)(Header);
