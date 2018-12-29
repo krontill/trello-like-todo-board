@@ -19,16 +19,10 @@ const initialState = [
   },
 ];
 
-const newList = {
-  id: uuidv4(),
-  title: null,
-  list: [],
-};
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_LIST:
-      return [...state, newList];
+      return [...state, action.payload];
 
     case REMOVE_LIST:
       return state.filter(item => item.id !== action.payload);
