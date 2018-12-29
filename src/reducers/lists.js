@@ -1,8 +1,10 @@
 import { ADD_LIST, REMOVE_LIST } from '../constants';
 
+const uuidv4 = require('uuid/v4');
+
 const initialState = [
   {
-    id: 0,
+    id: uuidv4(),
     title: 'To Do',
     list: [
       {
@@ -18,7 +20,7 @@ const initialState = [
 ];
 
 const newList = {
-  id: 1,
+  id: uuidv4(),
   title: null,
   list: [],
 };
