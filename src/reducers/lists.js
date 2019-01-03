@@ -1,3 +1,4 @@
+import { Set } from 'immutable';
 import { ADD_LIST, REMOVE_LIST } from '../constants';
 
 const uuidv4 = require('uuid/v4');
@@ -11,7 +12,6 @@ const initialState = [
         id: uuidv4(),
         title: 'Title Card',
         text: 'Text Card',
-        color: null, // ['green', 'yellow', 'orange', 'red', 'purple', 'blue']
         priority: null, // ['height' , 'medium', 'low']
         dueDate: null,
         labels: null,
@@ -21,10 +21,34 @@ const initialState = [
         title:
           'As React is just a lib, it doesn’t dictate rules about how you should organize and structure your projects. This is nice, because it gives us freedom to try different approaches and adapt the ones that better fit for us. On the other hand, this could cause some confusion for devs that are starting in React world. As React is just a lib, it doesn’t dictate rules about how you should organize and structure your projects. This is nice, because it gives us freedom to try different approaches and adapt the ones that better fit for us. On the other hand, this could cause some confusion for devs that are starting in React world.',
         text: 'Text Card',
-        color: ['green'], // ['green', 'yellow', 'orange', 'red', 'purple', 'blue']
         priority: 'low', // ['height' , 'medium', 'low']
         dueDate: '2019-01-02',
-        labels: ['label', 'label-1'],
+        labels: Set([
+          {
+            color: 'green',
+            name: null,
+          },
+          {
+            color: 'yellow',
+            name: null,
+          },
+          {
+            color: 'orange',
+            name: null,
+          },
+          {
+            color: 'red',
+            name: null,
+          },
+          {
+            color: 'purple',
+            name: null,
+          },
+          {
+            color: 'blue',
+            name: null,
+          },
+        ]),
       },
     ],
   },

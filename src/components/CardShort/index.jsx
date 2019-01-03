@@ -43,6 +43,21 @@ const styles = () => ({
     opacity: 0,
     transition: 'opacity .1s',
   },
+  labels: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    padding: '16px 16px 0 16px',
+  },
+  label: {
+    fontSize: '0.75rem',
+    fontWeight: '700',
+    height: '8px',
+    margin: '0 4px 4px 0',
+    width: '40px',
+    padding: '0',
+    borderRadius: '4px',
+    flexShrink: 0,
+  },
 });
 
 const CardShort = props => {
@@ -92,8 +107,22 @@ const CardShort = props => {
       </span>
     </React.Fragment>
   );
+  const labels = card.labels && (
+    <div className={classes.labels}>
+      {card.labels.map(label => (
+        <span
+          key={label.color + label.name}
+          style={{ background: label.color }}
+          className={classes.label}
+        >
+          {label.name}
+        </span>
+      ))}
+    </div>
+  );
   return (
     <Card className={classes.card}>
+      {labels}
       <CardHeader
         classes={{ root: classes.root, action: classes.action }}
         action={icon}
@@ -118,7 +147,7 @@ CardShort.propTypes = {
     color: PropTypes.arrayOf(PropTypes.string),
     priority: PropTypes.string,
     dueDate: PropTypes.string,
-    labels: PropTypes.arrayOf(PropTypes.string),
+    labels: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
 };
 
