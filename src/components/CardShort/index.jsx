@@ -11,6 +11,7 @@ import AccessTime from '@material-ui/icons/AccessTime';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import LowPriority from '@material-ui/icons/LowPriority';
 import { withStyles } from '@material-ui/core';
+import moment from 'moment';
 
 const styles = () => ({
   card: {
@@ -22,6 +23,11 @@ const styles = () => ({
     fontSize: '1rem',
   },
   icon: {
+    marginRight: '8px',
+  },
+  date: {
+    top: '-5px',
+    position: 'relative',
     marginRight: '8px',
   },
 });
@@ -62,11 +68,16 @@ const CardShort = props => {
     />
   );
   const dueDateIcon = card.dueDate && (
-    <AccessTime
-      className={classes.icon}
-      fontSize="small"
-      titleAccess="This card id due later."
-    />
+    <React.Fragment>
+      <AccessTime
+        className={classes.icon}
+        fontSize="small"
+        titleAccess="This card id due later."
+      />
+      <span className={classes.date}>
+        {moment(card.dueDate).format('MMM D')}
+      </span>
+    </React.Fragment>
   );
   return (
     <Card className={classes.card}>
