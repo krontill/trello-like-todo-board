@@ -28,9 +28,9 @@ const ListCards = props => {
       <MoreHorizIcon fontSize="small" />
     </IconButton>
   );
-  const cardsTemplate = list.cards.map(card => (
-    <CardShort key={card.id} card={card} />
-  ));
+  const cardsTemplate =
+    list.cards &&
+    list.cards.map(card => <CardShort key={card.id} card={card} />);
   return (
     <Card className={classes.card}>
       <CardHeader variant="h2" action={icon} title={list.title} />
@@ -47,7 +47,7 @@ ListCards.propTypes = {
   list: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string,
-    cards: PropTypes.arrayOf(PropTypes.object).isRequired,
+    cards: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 
