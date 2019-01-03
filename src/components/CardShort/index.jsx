@@ -18,9 +18,13 @@ const styles = () => ({
     background: '#fff',
     margin: '8px 0',
     cursor: 'pointer',
+    '&:hover $action': {
+      opacity: 1,
+    },
   },
   title: {
-    fontSize: '1rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.42',
   },
   icon: {
     marginRight: '8px',
@@ -29,6 +33,15 @@ const styles = () => ({
     top: '-5px',
     position: 'relative',
     marginRight: '8px',
+  },
+  root: {
+    position: 'relative',
+  },
+  action: {
+    position: 'absolute',
+    right: '8px',
+    opacity: 0,
+    transition: 'opacity .1s',
   },
 });
 
@@ -81,7 +94,11 @@ const CardShort = props => {
   );
   return (
     <Card className={classes.card}>
-      <CardHeader action={icon} title={title} />
+      <CardHeader
+        classes={{ root: classes.root, action: classes.action }}
+        action={icon}
+        title={title}
+      />
       <CardContent>
         {textIcon}
         {priorityHeightIcon}
