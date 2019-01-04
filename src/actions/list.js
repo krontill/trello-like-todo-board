@@ -2,11 +2,11 @@ import { ADD_LIST, REMOVE_LIST } from '../constants';
 
 const uuidv4 = require('uuid/v4');
 
-export const addList = () => ({
+export const addList = title => ({
   type: ADD_LIST,
   payload: {
     id: uuidv4(),
-    title: null,
+    title: title || null,
     cards: null,
   },
 });
