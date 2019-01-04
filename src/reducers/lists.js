@@ -29,8 +29,12 @@ const initialState = [
             name: null,
           },
           {
+            color: 'green',
+            name: 'Ecology',
+          },
+          {
             color: 'yellow',
-            name: null,
+            name: 'Tasks for the summer. Tasks for the summer.',
           },
           {
             color: 'orange',

@@ -12,14 +12,19 @@ import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import LowPriority from '@material-ui/icons/LowPriority';
 import { withStyles } from '@material-ui/core';
 import moment from 'moment';
+import LabelsShort from '../LabelsShort';
 
 const styles = () => ({
   card: {
+    position: 'relative',
     background: '#fff',
     margin: '8px 0',
     cursor: 'pointer',
     '&:hover $action': {
       opacity: 1,
+    },
+    '&:hover': {
+      background: '#f5f6f7',
     },
   },
   title: {
@@ -34,29 +39,12 @@ const styles = () => ({
     position: 'relative',
     marginRight: '8px',
   },
-  root: {
-    position: 'relative',
-  },
   action: {
     position: 'absolute',
     right: '8px',
+    top: '8px',
     opacity: 0,
     transition: 'opacity .1s',
-  },
-  labels: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding: '16px 16px 0 16px',
-  },
-  label: {
-    fontSize: '0.75rem',
-    fontWeight: '700',
-    height: '8px',
-    margin: '0 4px 4px 0',
-    width: '40px',
-    padding: '0',
-    borderRadius: '4px',
-    flexShrink: 0,
   },
 });
 
@@ -107,24 +95,12 @@ const CardShort = props => {
       </span>
     </React.Fragment>
   );
-  const labels = card.labels && (
-    <div className={classes.labels}>
-      {card.labels.map(label => (
-        <span
-          key={label.color + label.name}
-          style={{ background: label.color }}
-          className={classes.label}
-        >
-          {label.name}
-        </span>
-      ))}
-    </div>
-  );
+  const labels = card.labels && <LabelsShort labels={card.labels} />;
   return (
     <Card className={classes.card}>
       {labels}
       <CardHeader
-        classes={{ root: classes.root, action: classes.action }}
+        classes={{ action: classes.action }}
         action={icon}
         title={title}
       />
