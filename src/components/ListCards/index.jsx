@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import CardShort from '../CardShort';
+import ListMenu from '../ListMenu';
 
 const styles = () => ({
   card: {
@@ -21,26 +22,55 @@ const styles = () => ({
   },
 });
 
-const ListCards = props => {
-  const { classes, list } = props;
-  const icon = (
-    <IconButton>
-      <MoreHorizIcon fontSize="small" />
-    </IconButton>
-  );
-  const cardsTemplate =
-    list.cards &&
-    list.cards.map(card => <CardShort key={card.id} card={card} />);
-  return (
-    <Card className={classes.card}>
-      <CardHeader variant="h2" action={icon} title={list.title} />
-      <CardContent>{cardsTemplate}</CardContent>
-      <CardActionArea className={classes.cardActionArea}>
-        Add a card
-      </CardActionArea>
-    </Card>
-  );
-};
+class ListCards extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { anchorEl: null };
+  }
+
+  handleClick(event) {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+
+  handleClose() {
+    this.setState({ anchorEl: null });
+  }
+
+  render() {
+    const { classes, list } = this.props;
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+    const icon = (
+      <IconButton
+        aria-label="More"
+        aria-owns={open ? 'long-menu' : undefined}
+        aria-haspopup="true"
+        onClick={event => this.handleClick(event)}
+      >
+        <MoreHorizIcon fontSize="small" />
+      </IconButton>
+    );
+    const cardsTemplate =
+      list.cards &&
+      list.cards.map(card => <CardShort key={card.id} card={card} />);
+    return (
+      <Card className={classes.card}>
+        <CardHeader variant="h2" action={icon} title={list.title} />
+        {open && (
+          <ListMenu
+            anchorEl={anchorEl}
+            open={open}
+            handleClose={() => this.handleClose()}
+          />
+        )}
+        <CardContent>{cardsTemplate}</CardContent>
+        <CardActionArea className={classes.cardActionArea}>
+          Add a card
+        </CardActionArea>
+      </Card>
+    );
+  }
+}
 
 ListCards.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
