@@ -31,7 +31,7 @@ const styles = theme => ({
 class AddListModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { open: false, title: null };
+    this.state = { open: false, title: '' };
   }
 
   handleOpen() {
@@ -39,7 +39,7 @@ class AddListModal extends React.Component {
   }
 
   handleClose() {
-    this.setState({ open: false, title: null });
+    this.setState({ open: false, title: '' });
   }
 
   handleChange(e) {
