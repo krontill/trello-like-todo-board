@@ -2,11 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
-const options = ['Edit', 'Delete'];
+import { connect } from 'react-redux';
+import { deleteList } from '../../actions/list';
 
 const ListMenu = props => {
-  const { anchorEl, open, handleClose } = props;
+  const { anchorEl, open, handleClose, listId } = props;
+  const options = [
+    {
+      text: 'Delete',
+      func: () => props.handleDeleteList(listId),
+    },
+  ];
   return (
     <Menu
       id="list-menu"
@@ -15,8 +21,14 @@ const ListMenu = props => {
       onClose={() => handleClose()}
     >
       {options.map(option => (
-        <MenuItem key={option} onClick={() => handleClose()}>
-          {option}
+        <MenuItem
+          key={option.text}
+          onClick={() => {
+            handleClose();
+            option.func();
+          }}
+        >
+          {option.text}
         </MenuItem>
       ))}
     </Menu>
@@ -27,6 +39,17 @@ ListMenu.propTypes = {
   anchorEl: PropTypes.objectOf(PropTypes.object).isRequired,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  listId: PropTypes.string.isRequired,
+  handleDeleteList: PropTypes.func.isRequired,
 };
 
-export default ListMenu;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  handleDeleteList: listId => dispatch(deleteList(listId)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListMenu);

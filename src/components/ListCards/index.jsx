@@ -59,6 +59,7 @@ class ListCards extends React.Component {
         {open && (
           <ListMenu
             anchorEl={anchorEl}
+            listId={list.id}
             open={open}
             handleClose={() => this.handleClose()}
           />

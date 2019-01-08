@@ -1,4 +1,4 @@
-import { ADD_LIST, REMOVE_LIST } from '../constants';
+import { ADD_LIST, DELETE_LIST } from '../constants';
 
 const uuidv4 = require('uuid/v4');
 
@@ -10,4 +10,4 @@ export const addList = title => ({
     cards: null,
   },
 });
-export const removeList = listId => ({ type: REMOVE_LIST, payload: listId });
+export const deleteList = listId => ({ type: DELETE_LIST, payload: listId });
