@@ -7,6 +7,9 @@ import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Typography from '@material-ui/core/Typography';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Input from '@material-ui/core/Input';
 import CardShort from '../CardShort';
 import ListMenu from '../ListMenu';
 
@@ -20,15 +23,40 @@ const styles = () => ({
   cardActionArea: {
     padding: '8px 16px',
   },
+  headerContent: {
+    overflow: 'hidden',
+  },
+  title: {
+    padding: '0 0 4px 4px',
+    overflowWrap: 'break-word',
+    margin: '0 0 5px 0',
+  },
+  input: {
+    lineHeight: '1.35417em',
+    fontSize: '1.5rem',
+    fontWeight: '400',
+    background: 'white',
+    padding: '0 0 0 4px',
+  },
 });
 
 class ListCards extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { anchorEl: null };
+    this.state = { anchorEl: null, newTitle: false, value: props.list.title };
   }
 
-  handleClick(event) {
+  setNewTitle(id, newTitle) {
+    const { handleEditList } = this.props;
+    this.setState({ newTitle: false });
+    handleEditList(id, newTitle);
+  }
+
+  handleClickTitle() {
+    this.setState({ newTitle: true });
+  }
+
+  handleClickIcon(event) {
     this.setState({ anchorEl: event.currentTarget });
   }
 
@@ -36,16 +64,20 @@ class ListCards extends React.Component {
     this.setState({ anchorEl: null });
   }
 
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
   render() {
     const { classes, list } = this.props;
-    const { anchorEl } = this.state;
+    const { anchorEl, newTitle, value } = this.state;
     const open = Boolean(anchorEl);
     const icon = (
       <IconButton
         aria-label="More"
         aria-owns={open ? 'long-menu' : undefined}
         aria-haspopup="true"
-        onClick={event => this.handleClick(event)}
+        onClick={event => this.handleClickIcon(event)}
       >
         <MoreHorizIcon fontSize="small" />
       </IconButton>
@@ -53,13 +85,38 @@ class ListCards extends React.Component {
     const cardsTemplate =
       list.cards &&
       list.cards.map(card => <CardShort key={card.id} card={card} />);
+    const title = (
+      <Typography
+        variant="headline"
+        component="span"
+        className={classes.title}
+        onClick={() => this.handleClickTitle()}
+      >
+        {list.title}
+      </Typography>
+    );
+    const NewTitle = (
+      <ClickAwayListener onClickAway={() => this.setNewTitle(list.id, value)}>
+        <Input
+          className={classes.input}
+          multiline
+          value={value}
+          onChange={event => this.handleChange(event)}
+        />
+      </ClickAwayListener>
+    );
     return (
       <Card className={classes.card}>
-        <CardHeader variant="h2" action={icon} title={list.title} />
+        <CardHeader
+          classes={{ content: classes.headerContent }}
+          variant="h2"
+          action={icon}
+          title={newTitle ? NewTitle : title}
+        />
         {open && (
           <ListMenu
             anchorEl={anchorEl}
-            listId={list.id}
+            list={list}
             open={open}
             handleClose={() => this.handleClose()}
           />
@@ -80,6 +137,7 @@ ListCards.propTypes = {
     title: PropTypes.string,
     cards: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  handleEditList: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ListCards);

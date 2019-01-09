@@ -1,5 +1,5 @@
 import { Set } from 'immutable';
-import { ADD_LIST, DELETE_LIST } from '../constants';
+import { ADD_LIST, DELETE_LIST, EDIT_LIST } from '../constants';
 
 const uuidv4 = require('uuid/v4');
 
@@ -64,7 +64,17 @@ export default (state = initialState, action) => {
       return [...state, action.payload];
 
     case DELETE_LIST:
-      return state.filter(item => item.id !== action.payload);
+      return state.filter(list => list.id !== action.payload);
+
+    case EDIT_LIST:
+      return state.map(list => {
+        if (list.id === action.payload.listId) {
+          const newList = list;
+          newList.title = action.payload.title;
+          return newList;
+        }
+        return list;
+      });
 
     default:
       return state;
