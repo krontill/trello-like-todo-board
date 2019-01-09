@@ -12,6 +12,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Input from '@material-ui/core/Input';
 import CardShort from '../CardShort';
 import ListMenu from '../ListMenu';
+import { ADD_CARD_MODAL } from '../../constants';
 
 const styles = () => ({
   card: {
@@ -69,7 +70,7 @@ class ListCards extends React.Component {
   }
 
   render() {
-    const { classes, list } = this.props;
+    const { classes, list, handleShowModal } = this.props;
     const { anchorEl, newTitle, value } = this.state;
     const open = Boolean(anchorEl);
     const icon = (
@@ -122,7 +123,10 @@ class ListCards extends React.Component {
           />
         )}
         <CardContent>{cardsTemplate}</CardContent>
-        <CardActionArea className={classes.cardActionArea}>
+        <CardActionArea
+          className={classes.cardActionArea}
+          onClick={() => handleShowModal(ADD_CARD_MODAL, { listId: list.id })}
+        >
           Add a card
         </CardActionArea>
       </Card>
@@ -138,6 +142,7 @@ ListCards.propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   handleEditList: PropTypes.func.isRequired,
+  handleShowModal: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ListCards);
