@@ -6,14 +6,7 @@ import ListModal from '../ListModal';
 
 const AddListModal = props => {
   const { handleAddList } = props;
-  return (
-    <ListModal
-      icon="AddBox"
-      action={handleAddList}
-      titleModal="Enter list title"
-      btnText="Add list"
-    />
-  );
+  return <ListModal action={handleAddList} />;
 };
 
 AddListModal.propTypes = {

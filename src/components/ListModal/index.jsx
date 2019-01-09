@@ -45,46 +45,56 @@ class ListModal extends React.Component {
   }
 
   render() {
-    const { classes, action, titleModal, btnText, icon } = this.props;
+    const { classes, action } = this.props;
     const { open, title } = this.state;
+
+    const icon = (
+      <IconButton aria-label="Add list cards" onClick={() => this.handleOpen()}>
+        <AddBox nativeColor="rgba(255, 255, 255, 0.3)" />
+      </IconButton>
+    );
+
+    const titleModal = (
+      <Typography variant="h5" id="modal-title">
+        Enter list title
+      </Typography>
+    );
+
+    const titleField = (
+      <TextField
+        required
+        id="title"
+        label="Required title"
+        className={classes.textField}
+        value={title}
+        onChange={e => this.handleChange(e)}
+      />
+    );
+
+    const btn = title && title.trim() && (
+      <Button
+        variant="contained"
+        onClick={() => {
+          action(title.trim());
+          this.handleClose();
+        }}
+      >
+        Add list
+      </Button>
+    );
+
     return (
       <div>
-        {icon === 'AddBox' ? (
-          <IconButton
-            aria-label="Add list cards"
-            onClick={() => this.handleOpen()}
-          >
-            <AddBox nativeColor="rgba(255, 255, 255, 0.3)" />
-          </IconButton>
-        ) : null}
+        {icon}
         <Modal
           aria-labelledby="modal-title"
           open={open}
           onClose={() => this.handleClose()}
         >
           <div className={classes.paper}>
-            <Typography variant="h5" id="modal-title">
-              {titleModal}
-            </Typography>
-            <TextField
-              required
-              id="title"
-              label="Required title"
-              className={classes.textField}
-              value={title}
-              onChange={e => this.handleChange(e)}
-            />
-            {title && title.trim() && (
-              <Button
-                variant="contained"
-                onClick={() => {
-                  action(title.trim());
-                  this.handleClose();
-                }}
-              >
-                {btnText}
-              </Button>
-            )}
+            {titleModal}
+            {titleField}
+            {btn}
           </div>
         </Modal>
       </div>
@@ -92,16 +102,9 @@ class ListModal extends React.Component {
   }
 }
 
-ListModal.defaultProps = {
-  icon: null,
-};
-
 ListModal.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   action: PropTypes.func.isRequired,
-  titleModal: PropTypes.string.isRequired,
-  btnText: PropTypes.string.isRequired,
-  icon: PropTypes.string,
 };
 
 export default withStyles(styles)(ListModal);
