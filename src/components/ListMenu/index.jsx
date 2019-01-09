@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import { deleteList } from '../../actions/list';
 
 const ListMenu = props => {
-  const { anchorEl, open, handleClose, listId } = props;
+  const { anchorEl, open, handleClose, list, handleDeleteList } = props;
   const options = [
     {
       text: 'Delete',
-      func: () => props.handleDeleteList(listId),
+      func: () => handleDeleteList(list.id),
     },
   ];
   return (
@@ -24,8 +24,8 @@ const ListMenu = props => {
         <MenuItem
           key={option.text}
           onClick={() => {
-            handleClose();
             option.func();
+            handleClose();
           }}
         >
           {option.text}
@@ -39,7 +39,11 @@ ListMenu.propTypes = {
   anchorEl: PropTypes.objectOf(PropTypes.object).isRequired,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  listId: PropTypes.string.isRequired,
+  list: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    cards: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
   handleDeleteList: PropTypes.func.isRequired,
 };
 
