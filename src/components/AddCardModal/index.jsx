@@ -12,7 +12,7 @@ const AddListModal = props => {
       listId={listId}
       handleAddCard={handleAddCard}
       handleHideModal={handleHideModal}
-      titleModal="Enter card title"
+      titleModal="Enter card info"
       btnText="Add card"
     />
   );
