@@ -2,6 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import classNames from 'classnames';
+import {
+  BLUE,
+  BLUE_HOVER,
+  YELLOW,
+  YELLOW_HOVER,
+  GREEN,
+  GREEN_HOVER,
+  ORANGE,
+  ORANGE_HOVER,
+  RED,
+  RED_HOVER,
+  PURPLE,
+  PURPLE_HOVER,
+} from '../../constants/colors';
 
 const styles = () => ({
   labels: {
@@ -19,39 +33,39 @@ const styles = () => ({
     transition: 'background .1s',
   },
   'label--yellow': {
-    background: '#f2d600',
+    background: YELLOW,
     '&:hover, &$labelHover': {
-      background: '#d9b51c',
+      background: YELLOW_HOVER,
     },
   },
   'label--green': {
-    background: '#61bd4f',
+    background: GREEN,
     '&:hover, &$labelHover': {
-      background: '#519839',
+      background: GREEN_HOVER,
     },
   },
   'label--orange': {
-    background: '#ff9f1a',
+    background: ORANGE,
     '&:hover, &$labelHover': {
-      background: '#cd8313',
+      background: ORANGE_HOVER,
     },
   },
   'label--red': {
-    background: '#eb5a46',
+    background: RED,
     '&:hover, &$labelHover': {
-      background: '#b04632',
+      background: RED_HOVER,
     },
   },
   'label--purple': {
-    background: '#c377e0',
+    background: PURPLE,
     '&:hover, &$labelHover': {
-      background: '#89609e',
+      background: PURPLE_HOVER,
     },
   },
   'label--blue': {
-    background: '#0079bf',
+    background: BLUE,
     '&:hover, &$labelHover': {
-      background: '#055a8c',
+      background: BLUE_HOVER,
     },
   },
   labelHover: {},

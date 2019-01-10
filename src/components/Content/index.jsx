@@ -1,16 +1,26 @@
 import React from 'react';
-import './content.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core';
 import ListCards from '../ListCards';
 import { editList } from '../../actions/list';
 import { showModal } from '../../actions/modal';
 
+const styles = () => ({
+  content: {
+    flex: '1 0 100%',
+    padding: '4px',
+    display: 'flex',
+    alignItems: 'flex-start',
+    overflowX: 'auto',
+  },
+});
+
 const Content = props => {
-  const { lists, handleEditList, handleShowModal } = props;
+  const { lists, handleEditList, handleShowModal, classes } = props;
 
   return (
-    <div className="content">
+    <div className={classes.content}>
       {lists.map(list => (
         <ListCards
           list={list}
@@ -27,6 +37,7 @@ Content.propTypes = {
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleEditList: PropTypes.func.isRequired,
   handleShowModal: PropTypes.func.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = ({ lists }) => ({
@@ -42,4 +53,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Content);
+)(withStyles(styles)(Content));
