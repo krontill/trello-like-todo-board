@@ -1,3 +1,4 @@
+import uuidv4 from 'uuid/v4';
 import {
   ADD_CARD,
   EDIT_CARD,
@@ -5,8 +6,6 @@ import {
   DELETE_LIST,
   EDIT_LIST,
 } from '../constants';
-
-const uuidv4 = require('uuid/v4');
 
 export const addList = title => ({
   type: ADD_LIST,

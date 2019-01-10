@@ -1,3 +1,4 @@
+import uuidv4 from 'uuid/v4';
 import { Set } from 'immutable';
 import {
   ADD_CARD,
@@ -6,8 +7,6 @@ import {
   DELETE_LIST,
   EDIT_LIST,
 } from '../constants';
-
-const uuidv4 = require('uuid/v4');
 
 const initialState = [
   {
