@@ -12,6 +12,7 @@ import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import LowPriority from '@material-ui/icons/LowPriority';
 import { withStyles } from '@material-ui/core';
 import moment from 'moment';
+import classNames from 'classnames';
 import LabelsShort from '../LabelsShort';
 import { EDIT_CARD_MODAL } from '../../constants';
 
@@ -26,6 +27,12 @@ const styles = () => ({
     },
     '&:hover': {
       background: '#f5f6f7',
+    },
+  },
+  cardActive: {
+    background: '#f5f6f7',
+    '& $action': {
+      opacity: 1,
     },
   },
   title: {
@@ -49,83 +56,103 @@ const styles = () => ({
   },
 });
 
-const CardShort = props => {
-  const { classes, card, handleShowModal, listId } = props;
+class CardShort extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { active: false };
+  }
 
-  const icon = (
-    <IconButton>
-      <Edit fontSize="small" />
-    </IconButton>
-  );
+  handleChangeActiveCard(active) {
+    this.setState({ active });
+  }
 
-  const title = (
-    <Typography variant="h3" className={classes.title}>
-      {card.title.length > 350
-        ? card.title.slice(0, 350) + String.fromCharCode(8230)
-        : card.title}
-    </Typography>
-  );
+  render() {
+    const { classes, card, handleShowModal, listId } = this.props;
+    const { active } = this.state;
 
-  const textIcon = card.text && (
-    <Subject
-      className={classes.icon}
-      fontSize="small"
-      titleAccess="This card has a description."
-    />
-  );
+    const icon = (
+      <IconButton
+        onBlur={() => this.handleChangeActiveCard(false)}
+        onFocusVisible={() => this.handleChangeActiveCard(true)}
+      >
+        <Edit fontSize="small" />
+      </IconButton>
+    );
 
-  const priorityHeightIcon = card.priority && card.priority === 'height' && (
-    <PriorityHigh
-      color="error"
-      className={classes.icon}
-      fontSize="small"
-      titleAccess="High priority."
-    />
-  );
+    const title = (
+      <Typography variant="h3" className={classes.title}>
+        {card.title.length > 350
+          ? card.title.slice(0, 350) + String.fromCharCode(8230)
+          : card.title}
+      </Typography>
+    );
 
-  const priorityLowIcon = card.priority && card.priority === 'low' && (
-    <LowPriority
-      className={classes.icon}
-      fontSize="small"
-      titleAccess="Low priority."
-    />
-  );
-
-  const dueDateIcon = card.dueDate && (
-    <React.Fragment>
-      <AccessTime
+    const textIcon = card.text && (
+      <Subject
         className={classes.icon}
         fontSize="small"
-        titleAccess="This card id due later."
+        titleAccess="This card has a description."
       />
-      <span className={classes.date}>
-        {moment(card.dueDate).format('MMM D')}
-      </span>
-    </React.Fragment>
-  );
+    );
 
-  const labels = card.labels && <LabelsShort labels={card.labels} />;
-
-  return (
-    <Card className={classes.card}>
-      {labels}
-      <CardHeader
-        classes={{ action: classes.action }}
-        action={icon}
-        title={title}
-        onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
+    const priorityHeightIcon = card.priority && card.priority === 'height' && (
+      <PriorityHigh
+        color="error"
+        className={classes.icon}
+        fontSize="small"
+        titleAccess="High priority."
       />
-      <CardContent
-        onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
-      >
-        {textIcon}
-        {priorityHeightIcon}
-        {priorityLowIcon}
-        {dueDateIcon}
-      </CardContent>
-    </Card>
-  );
-};
+    );
+
+    const priorityLowIcon = card.priority && card.priority === 'low' && (
+      <LowPriority
+        className={classes.icon}
+        fontSize="small"
+        titleAccess="Low priority."
+      />
+    );
+
+    const dueDateIcon = card.dueDate && (
+      <React.Fragment>
+        <AccessTime
+          className={classes.icon}
+          fontSize="small"
+          titleAccess="This card id due later."
+        />
+        <span className={classes.date}>
+          {moment(card.dueDate).format('MMM D')}
+        </span>
+      </React.Fragment>
+    );
+
+    const labels = card.labels && <LabelsShort labels={card.labels} />;
+
+    const cardClass = classNames({
+      [classes.card]: true,
+      [classes.cardActive]: active,
+    });
+
+    return (
+      <Card className={cardClass}>
+        {labels}
+        <CardHeader
+          classes={{ action: classes.action }}
+          action={icon}
+          title={title}
+          onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
+        />
+        <CardContent
+          onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
+        >
+          {textIcon}
+          {priorityHeightIcon}
+          {priorityLowIcon}
+          {dueDateIcon}
+        </CardContent>
+      </Card>
+    );
+  }
+}
 
 CardShort.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
