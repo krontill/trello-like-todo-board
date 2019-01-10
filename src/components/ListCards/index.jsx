@@ -73,6 +73,7 @@ class ListCards extends React.Component {
     const { classes, list, handleShowModal } = this.props;
     const { anchorEl, newTitle, value } = this.state;
     const open = Boolean(anchorEl);
+
     const icon = (
       <IconButton
         aria-label="More"
@@ -83,9 +84,11 @@ class ListCards extends React.Component {
         <MoreHorizIcon fontSize="small" />
       </IconButton>
     );
+
     const cardsTemplate =
       list.cards &&
       list.cards.map(card => <CardShort key={card.id} card={card} />);
+
     const title = (
       <Typography
         variant="headline"
@@ -96,6 +99,7 @@ class ListCards extends React.Component {
         {list.title}
       </Typography>
     );
+
     const NewTitle = (
       <ClickAwayListener onClickAway={() => this.setNewTitle(list.id, value)}>
         <Input
@@ -106,6 +110,7 @@ class ListCards extends React.Component {
         />
       </ClickAwayListener>
     );
+
     return (
       <Card className={classes.card}>
         <CardHeader

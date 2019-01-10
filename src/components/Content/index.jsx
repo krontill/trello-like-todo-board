@@ -8,6 +8,7 @@ import { showModal } from '../../actions/modal';
 
 const Content = props => {
   const { lists, handleEditList, handleShowModal } = props;
+
   return (
     <div className="content">
       {lists.map(list => (

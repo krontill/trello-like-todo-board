@@ -92,11 +92,13 @@ class LabelsShort extends React.Component {
   render() {
     const { classes, labels } = this.props;
     const { open, hover } = this.state;
+
     const labelClass = classNames({
       [classes.label]: true,
       [classes.labelOpen]: open,
       [classes.labelHover]: hover,
     });
+
     return (
       <div className={classes.labels}>
         {labels.map(label => (

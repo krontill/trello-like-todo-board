@@ -7,6 +7,7 @@ import CardModal from '../CardModal';
 
 const AddListModal = props => {
   const { handleAddCard, handleHideModal, listId } = props;
+
   return (
     <CardModal
       listId={listId}

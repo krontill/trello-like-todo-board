@@ -7,12 +7,14 @@ import { deleteList } from '../../actions/list';
 
 const ListMenu = props => {
   const { anchorEl, open, handleClose, list, handleDeleteList } = props;
+
   const options = [
     {
       text: 'Delete',
       func: () => handleDeleteList(list.id),
     },
   ];
+
   return (
     <Menu
       id="list-menu"

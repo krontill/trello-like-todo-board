@@ -50,11 +50,13 @@ const styles = () => ({
 
 const CardShort = props => {
   const { classes, card } = props;
+
   const icon = (
     <IconButton>
       <Edit fontSize="small" />
     </IconButton>
   );
+
   const title = (
     <Typography variant="h3" className={classes.title}>
       {card.title.length > 350
@@ -62,6 +64,7 @@ const CardShort = props => {
         : card.title}
     </Typography>
   );
+
   const textIcon = card.text && (
     <Subject
       className={classes.icon}
@@ -69,6 +72,7 @@ const CardShort = props => {
       titleAccess="This card has a description."
     />
   );
+
   const priorityHeightIcon = card.priority && card.priority === 'height' && (
     <PriorityHigh
       className={classes.icon}
@@ -76,6 +80,7 @@ const CardShort = props => {
       titleAccess="High priority."
     />
   );
+
   const priorityLowIcon = card.priority && card.priority === 'low' && (
     <LowPriority
       className={classes.icon}
@@ -83,6 +88,7 @@ const CardShort = props => {
       titleAccess="Low priority."
     />
   );
+
   const dueDateIcon = card.dueDate && (
     <React.Fragment>
       <AccessTime
@@ -95,7 +101,9 @@ const CardShort = props => {
       </span>
     </React.Fragment>
   );
+
   const labels = card.labels && <LabelsShort labels={card.labels} />;
+
   return (
     <Card className={classes.card}>
       {labels}

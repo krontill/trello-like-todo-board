@@ -6,6 +6,7 @@ import ListModal from '../ListModal';
 
 const AddListModal = props => {
   const { handleAddList } = props;
+
   return <ListModal action={handleAddList} />;
 };
 
