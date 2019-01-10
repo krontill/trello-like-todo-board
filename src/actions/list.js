@@ -1,4 +1,10 @@
-import { ADD_CARD, ADD_LIST, DELETE_LIST, EDIT_LIST } from '../constants';
+import {
+  ADD_CARD,
+  EDIT_CARD,
+  ADD_LIST,
+  DELETE_LIST,
+  EDIT_LIST,
+} from '../constants';
 
 const uuidv4 = require('uuid/v4');
 
@@ -29,7 +35,30 @@ export const addCard = ({
     listId,
     card: {
       id: uuidv4(),
-      title: title || null,
+      title,
+      text: text || null,
+      priority: priority || null,
+      dueDate: dueDate || null,
+      labels: labels || null,
+    },
+  },
+});
+
+export const editCard = ({
+  listId,
+  title,
+  text,
+  priority,
+  dueDate,
+  labels,
+  id,
+}) => ({
+  type: EDIT_CARD,
+  payload: {
+    listId,
+    card: {
+      id,
+      title,
       text: text || null,
       priority: priority || null,
       dueDate: dueDate || null,

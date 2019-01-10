@@ -13,6 +13,7 @@ import LowPriority from '@material-ui/icons/LowPriority';
 import { withStyles } from '@material-ui/core';
 import moment from 'moment';
 import LabelsShort from '../LabelsShort';
+import { EDIT_CARD_MODAL } from '../../constants';
 
 const styles = () => ({
   card: {
@@ -49,7 +50,7 @@ const styles = () => ({
 });
 
 const CardShort = props => {
-  const { classes, card } = props;
+  const { classes, card, handleShowModal, listId } = props;
 
   const icon = (
     <IconButton>
@@ -75,6 +76,7 @@ const CardShort = props => {
 
   const priorityHeightIcon = card.priority && card.priority === 'height' && (
     <PriorityHigh
+      color="error"
       className={classes.icon}
       fontSize="small"
       titleAccess="High priority."
@@ -111,8 +113,11 @@ const CardShort = props => {
         classes={{ action: classes.action }}
         action={icon}
         title={title}
+        onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
       />
-      <CardContent>
+      <CardContent
+        onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
+      >
         {textIcon}
         {priorityHeightIcon}
         {priorityLowIcon}
@@ -128,11 +133,12 @@ CardShort.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string,
-    color: PropTypes.arrayOf(PropTypes.string),
     priority: PropTypes.string,
     dueDate: PropTypes.string,
     labels: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
+  handleShowModal: PropTypes.func.isRequired,
+  listId: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(CardShort);

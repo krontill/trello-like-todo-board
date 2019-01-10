@@ -11,7 +11,7 @@ const AddCardModal = props => {
   return (
     <CardModal
       listId={listId}
-      handleAddCard={handleAddCard}
+      action={handleAddCard}
       handleHideModal={handleHideModal}
       titleModal="Enter card info"
       btnText="Add card"

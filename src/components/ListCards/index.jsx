@@ -87,7 +87,14 @@ class ListCards extends React.Component {
 
     const cardsTemplate =
       list.cards &&
-      list.cards.map(card => <CardShort key={card.id} card={card} />);
+      list.cards.map(card => (
+        <CardShort
+          key={card.id}
+          card={card}
+          listId={list.id}
+          handleShowModal={handleShowModal}
+        />
+      ));
 
     const title = (
       <Typography

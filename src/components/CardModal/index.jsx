@@ -9,6 +9,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Title from '@material-ui/icons/Title';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Subject from '@material-ui/icons/Subject';
+import AccessTime from '@material-ui/icons/AccessTime';
+import PriorityHigh from '@material-ui/icons/PriorityHigh';
+import LowPriority from '@material-ui/icons/LowPriority';
 
 const styles = theme => ({
   textField: {
@@ -31,12 +37,21 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 4,
   },
+  selectIcon: {
+    marginLeft: '10px',
+    verticalAlign: 'bottom',
+  },
 });
 
 class CardModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { title: '', text: '', priority: '', dueDate: '' };
+    this.state = {
+      title: (props.card && props.card.title) || '',
+      text: (props.card && props.card.text) || '',
+      priority: (props.card && props.card.priority) || '',
+      dueDate: (props.card && props.card.dueDate) || '',
+    };
   }
 
   handleChange(name, event) {
@@ -54,11 +69,12 @@ class CardModal extends React.Component {
   render() {
     const {
       classes,
-      handleAddCard,
+      action,
       titleModal,
       btnText,
       handleHideModal,
       listId,
+      card,
     } = this.props;
     const { title, text, priority, dueDate } = this.state;
 
@@ -76,6 +92,13 @@ class CardModal extends React.Component {
         className={classes.textField}
         value={title}
         onChange={e => this.handleChange('title', e)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Title />
+            </InputAdornment>
+          ),
+        }}
       />
     );
 
@@ -87,6 +110,13 @@ class CardModal extends React.Component {
         className={classes.textField}
         value={text}
         onChange={e => this.handleChange('text', e)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Subject />
+            </InputAdornment>
+          ),
+        }}
       />
     );
 
@@ -104,9 +134,15 @@ class CardModal extends React.Component {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value="low">Low</MenuItem>
+          <MenuItem value="low">
+            Low
+            <LowPriority className={classes.selectIcon} />
+          </MenuItem>
           <MenuItem value="medium">Medium</MenuItem>
-          <MenuItem value="height">Height</MenuItem>
+          <MenuItem value="height">
+            Height
+            <PriorityHigh color="error" className={classes.selectIcon} />
+          </MenuItem>
         </Select>
       </FormControl>
     );
@@ -122,6 +158,13 @@ class CardModal extends React.Component {
           shrink: true,
         }}
         onChange={e => this.handleChange('dueDate', e)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <AccessTime />
+            </InputAdornment>
+          ),
+        }}
       />
     );
 
@@ -129,7 +172,8 @@ class CardModal extends React.Component {
       <Button
         variant="contained"
         onClick={() => {
-          handleAddCard({
+          action({
+            id: card && card.id,
             listId,
             title: title.trim(),
             text,
@@ -165,13 +209,25 @@ class CardModal extends React.Component {
   }
 }
 
+CardModal.defaultProps = {
+  card: null,
+};
+
 CardModal.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  handleAddCard: PropTypes.func.isRequired,
+  action: PropTypes.func.isRequired,
   handleHideModal: PropTypes.func.isRequired,
   titleModal: PropTypes.string.isRequired,
   btnText: PropTypes.string.isRequired,
   listId: PropTypes.string.isRequired,
+  card: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    priority: PropTypes.string,
+    dueDate: PropTypes.string,
+    labels: PropTypes.objectOf(PropTypes.object),
+  }),
 };
 
 export default withStyles(styles)(CardModal);
