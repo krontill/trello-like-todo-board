@@ -5,7 +5,7 @@ import { addCard } from '../../actions/list';
 import { hideModal } from '../../actions/modal';
 import CardModal from '../CardModal';
 
-const AddListModal = props => {
+const AddCardModal = props => {
   const { handleAddCard, handleHideModal, listId } = props;
 
   return (
@@ -19,7 +19,7 @@ const AddListModal = props => {
   );
 };
 
-AddListModal.propTypes = {
+AddCardModal.propTypes = {
   handleAddCard: PropTypes.func.isRequired,
   handleHideModal: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,
@@ -35,4 +35,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddListModal);
+)(AddCardModal);
