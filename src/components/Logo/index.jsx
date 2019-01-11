@@ -1,11 +1,32 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import logoSvg from './logo.svg';
-import './logo.css';
 
-const Logo = () => (
-  <a href="/">
-    <img className="logo" src={logoSvg} alt="logo" />
-  </a>
-);
+const style = () => ({
+  logo: {
+    width: '80px',
+    height: '30px',
+    opacity: '.5',
+    marginTop: '8px',
+    transition: 'opacity .1s ease',
+    '&:hover, &:focus': {
+      opacity: '.8',
+    },
+  },
+});
 
-export default Logo;
+const Logo = props => {
+  const { classes } = props;
+  return (
+    <a href="/">
+      <img className={classes.logo} src={logoSvg} alt="logo" />
+    </a>
+  );
+};
+
+Logo.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+
+export default withStyles(style)(Logo);
