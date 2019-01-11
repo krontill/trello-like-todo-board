@@ -15,7 +15,7 @@ import {
   RED,
   PURPLE,
 } from '../../constants/colors';
-import changeBg from '../../actions/setting';
+import { changeBg } from '../../actions/setting';
 import mount from './mount.jpeg';
 import sea from './sea.jpeg';
 

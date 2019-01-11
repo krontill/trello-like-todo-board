@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Logo from '../Logo';
 import AddListModal from '../AddListModal';
 import SettingBg from '../SettingBg';
+import Undo from '../Undo';
+import Redo from '../Redo';
 
 const styles = () => ({
   header: {
@@ -24,6 +26,8 @@ const Header = props => {
       <div className="search">search</div>
       <Logo />
       <div className={classes.toolBar}>
+        <Undo />
+        <Redo />
         <SettingBg />
         <AddListModal />
       </div>

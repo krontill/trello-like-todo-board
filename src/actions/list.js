@@ -15,7 +15,9 @@ export const addList = title => ({
     cards: null,
   },
 });
+
 export const deleteList = listId => ({ type: DELETE_LIST, payload: listId });
+
 export const editList = (listId, title) => ({
   type: EDIT_LIST,
   payload: { listId, title },
