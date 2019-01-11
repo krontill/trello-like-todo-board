@@ -72,6 +72,7 @@ class CardShort extends React.Component {
 
     const icon = (
       <IconButton
+        aria-label="Edit"
         onBlur={() => this.handleChangeActiveCard(false)}
         onFocusVisible={() => this.handleChangeActiveCard(true)}
       >
