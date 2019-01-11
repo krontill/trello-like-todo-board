@@ -14,6 +14,8 @@ import {
   RED,
   PURPLE,
 } from '../../constants/colors';
+import sea from './sea.jpg';
+import mount from './mount.jpg';
 
 const styles = () => ({
   app: {
@@ -39,6 +41,14 @@ const styles = () => ({
   },
   'app--purple': {
     background: PURPLE,
+  },
+  'app--mount': {
+    background: `url("${mount}") no-repeat center center`,
+    backgroundSize: 'cover',
+  },
+  'app--sea': {
+    background: `url("${sea}") no-repeat center center`,
+    backgroundSize: 'cover',
   },
 });
 

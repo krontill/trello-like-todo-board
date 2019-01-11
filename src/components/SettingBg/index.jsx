@@ -5,6 +5,8 @@ import ColorLens from '@material-ui/icons/ColorLens';
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
+import classNames from 'classnames';
 import {
   BLUE,
   YELLOW,
@@ -14,15 +16,55 @@ import {
   PURPLE,
 } from '../../constants/colors';
 import changeBg from '../../actions/setting';
+import mount from './mount.jpeg';
+import sea from './sea.jpeg';
 
 const options = [
-  { text: 'Blue', color: BLUE },
-  { text: 'Yellow', color: YELLOW },
-  { text: 'Green', color: GREEN },
-  { text: 'Orange', color: ORANGE },
-  { text: 'Red', color: RED },
-  { text: 'Purple', color: PURPLE },
+  'Blue',
+  'Yellow',
+  'Green',
+  'Orange',
+  'Red',
+  'Purple',
+  'Mount',
+  'Sea',
 ];
+
+const style = () => ({
+  item: {
+    textShadow: '0 0 2px white',
+    '&$item--mount, &$item--sea': {
+      backgroundSize: 'cover',
+      minWidth: '100px',
+      width: '100%',
+      height: '75px',
+    },
+  },
+  'item--blue': {
+    background: BLUE,
+  },
+  'item--yellow': {
+    background: YELLOW,
+  },
+  'item--green': {
+    background: GREEN,
+  },
+  'item--orange': {
+    background: ORANGE,
+  },
+  'item--red': {
+    background: RED,
+  },
+  'item--purple': {
+    background: PURPLE,
+  },
+  'item--mount': {
+    background: `url("${mount}") no-repeat`,
+  },
+  'item--sea': {
+    background: `url("${sea}") no-repeat`,
+  },
+});
 
 class SettingBg extends React.Component {
   constructor(props) {
@@ -42,34 +84,36 @@ class SettingBg extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { handleChangeBg } = this.props;
+    const { handleChangeBg, classes } = this.props;
 
     return (
       <div>
         <IconButton
           aria-label="Setting background"
-          ria-owns={anchorEl ? 'simple-menu' : undefined}
+          ria-owns={anchorEl ? 'setting-menu' : undefined}
           aria-haspopup="true"
           onClick={e => this.handleClick(e)}
         >
           <ColorLens nativeColor="rgba(255, 255, 255, 0.3)" />
         </IconButton>
         <Menu
-          id="simple-menu"
+          id="setting-menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={() => this.handleClose()}
         >
           {options.map(option => (
             <MenuItem
-              key={option.text}
+              key={option}
               onClick={() => {
-                handleChangeBg(option.text.toLowerCase());
+                handleChangeBg(option.toLowerCase());
                 this.handleClose();
               }}
-              style={{ background: option.color }}
+              className={classNames(classes.item, {
+                [classes[`item--${option.toLowerCase()}`]]: true,
+              })}
             >
-              {option.text}
+              {option}
             </MenuItem>
           ))}
         </Menu>
@@ -80,6 +124,7 @@ class SettingBg extends React.Component {
 
 SettingBg.propTypes = {
   handleChangeBg: PropTypes.func.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = () => ({});
@@ -91,4 +136,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SettingBg);
+)(withStyles(style)(SettingBg));
