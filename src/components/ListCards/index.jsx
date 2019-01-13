@@ -70,7 +70,7 @@ class ListCards extends React.Component {
   }
 
   render() {
-    const { classes, list, handleShowModal } = this.props;
+    const { classes, list, handleShowModal, handleDeleteList } = this.props;
     const { anchorEl, newTitle, value } = this.state;
     const open = Boolean(anchorEl);
 
@@ -132,6 +132,7 @@ class ListCards extends React.Component {
             list={list}
             open={open}
             handleClose={() => this.handleClose()}
+            handleDeleteList={handleDeleteList}
           />
         )}
         <CardContent>{cardsTemplate}</CardContent>
@@ -155,6 +156,7 @@ ListCards.propTypes = {
   }).isRequired,
   handleEditList: PropTypes.func.isRequired,
   handleShowModal: PropTypes.func.isRequired,
+  handleDeleteList: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ListCards);

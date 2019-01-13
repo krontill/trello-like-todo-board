@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addCard } from '../../actions/list';
 import { hideModal } from '../../actions/modal';
-import CardModal from '../CardModal';
+import CardModal from '../../components/CardModal/index';
 
 const AddCardModal = props => {
   const { handleAddCard, handleHideModal, listId } = props;

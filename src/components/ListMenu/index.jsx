@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { connect } from 'react-redux';
-import { deleteList } from '../../actions/list';
 
 const ListMenu = props => {
   const { anchorEl, open, handleClose, list, handleDeleteList } = props;
@@ -49,13 +47,4 @@ ListMenu.propTypes = {
   handleDeleteList: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = dispatch => ({
-  handleDeleteList: listId => dispatch(deleteList(listId)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ListMenu);
+export default ListMenu;

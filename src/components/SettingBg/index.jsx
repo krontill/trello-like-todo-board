@@ -4,7 +4,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ColorLens from '@material-ui/icons/ColorLens';
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import {
@@ -15,7 +14,6 @@ import {
   RED,
   PURPLE,
 } from '../../constants/colors';
-import { changeBg } from '../../actions/setting';
 import mount from './mount.jpeg';
 import sea from './sea.jpeg';
 
@@ -86,36 +84,45 @@ class SettingBg extends React.Component {
     const { anchorEl } = this.state;
     const { handleChangeBg, classes } = this.props;
 
+    const icon = (
+      <IconButton
+        aria-label="Setting background"
+        ria-owns={anchorEl ? 'setting-menu' : undefined}
+        aria-haspopup="true"
+        onClick={e => this.handleClick(e)}
+      >
+        <ColorLens nativeColor="rgba(255, 255, 255, 0.3)" />
+      </IconButton>
+    );
+
+    const classMenuItem = option =>
+      classNames(classes.item, {
+        [classes[`item--${option.toLowerCase()}`]]: true,
+      });
+
+    const menuItemTemplate = options.map(option => (
+      <MenuItem
+        key={option}
+        onClick={() => {
+          handleChangeBg(option.toLowerCase());
+          this.handleClose();
+        }}
+        className={classMenuItem(option)}
+      >
+        >{option}
+      </MenuItem>
+    ));
+
     return (
       <div>
-        <IconButton
-          aria-label="Setting background"
-          ria-owns={anchorEl ? 'setting-menu' : undefined}
-          aria-haspopup="true"
-          onClick={e => this.handleClick(e)}
-        >
-          <ColorLens nativeColor="rgba(255, 255, 255, 0.3)" />
-        </IconButton>
+        {icon}
         <Menu
           id="setting-menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={() => this.handleClose()}
         >
-          {options.map(option => (
-            <MenuItem
-              key={option}
-              onClick={() => {
-                handleChangeBg(option.toLowerCase());
-                this.handleClose();
-              }}
-              className={classNames(classes.item, {
-                [classes[`item--${option.toLowerCase()}`]]: true,
-              })}
-            >
-              {option}
-            </MenuItem>
-          ))}
+          {menuItemTemplate}
         </Menu>
       </div>
     );
@@ -127,13 +134,4 @@ SettingBg.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = dispatch => ({
-  handleChangeBg: bg => dispatch(changeBg(bg)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(style)(SettingBg));
+export default withStyles(style)(SettingBg);
