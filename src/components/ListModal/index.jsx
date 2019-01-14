@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core';
 import AddBox from '@material-ui/icons/AddBox';
 import IconButton from '@material-ui/core/IconButton';
+import ModalTitle from '../ModalTitle';
+import FieldTitle from '../FieldTitle';
+import FieldButton from '../FieldButton';
 
 const styles = theme => ({
   textField: {
@@ -54,46 +54,31 @@ class ListModal extends React.Component {
       </IconButton>
     );
 
-    const titleModal = (
-      <Typography variant="h5" id="modal-title">
-        Enter list title
-      </Typography>
-    );
-
-    const titleField = (
-      <TextField
-        required
-        id="title"
-        label="Required title"
-        className={classes.textField}
-        value={title}
-        onChange={e => this.handleChange(e)}
-      />
-    );
-
     const btn = title && title.trim() && (
-      <Button
-        variant="contained"
-        onClick={() => {
+      <FieldButton
+        btnText="Add list"
+        handleClick={() => {
           action(title.trim());
           this.handleClose();
         }}
-      >
-        Add list
-      </Button>
+      />
     );
 
     return (
       <div>
         {icon}
         <Modal
-          aria-labelledby="modal-title"
+          aria-labelledby="modal-title-list"
           open={open}
           onClose={() => this.handleClose()}
         >
           <div className={classes.paper}>
-            {titleModal}
-            {titleField}
+            <ModalTitle titleModal="Enter list title" />
+            <FieldTitle
+              classes={classes}
+              title={title}
+              handleChange={e => this.handleChange(e)}
+            />
             {btn}
           </div>
         </Modal>

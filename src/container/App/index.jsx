@@ -112,8 +112,8 @@ const App = props => {
           <Undo handleUndo={handleUndo} />
           <Redo handleRedo={handleRedo} />
           <SettingBg handleChangeBg={handleChangeBg} />
-          <ListModal action={handleAddList} />;
-</div>
+          <ListModal action={handleAddList} />
+        </div>
       </header>
       <div className={classes.content}>{listsTemplate}</div>
       <ModalRoot />

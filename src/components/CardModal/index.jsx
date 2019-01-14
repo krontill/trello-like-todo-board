@@ -1,20 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Title from '@material-ui/icons/Title';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Subject from '@material-ui/icons/Subject';
-import AccessTime from '@material-ui/icons/AccessTime';
-import PriorityHigh from '@material-ui/icons/PriorityHigh';
-import LowPriority from '@material-ui/icons/LowPriority';
+import ModalTitle from '../ModalTitle';
+import FieldTitle from '../FieldTitle';
+import FieldText from '../FieldText';
+import FieldPriority from '../FieldPriority';
+import FieldDueDate from '../FieldDueDate';
+import FieldButton from '../FieldButton';
 
 const styles = theme => ({
   textField: {
@@ -78,100 +71,10 @@ class CardModal extends React.Component {
     } = this.props;
     const { title, text, priority, dueDate } = this.state;
 
-    const titleModalHtml = (
-      <Typography variant="h5" id="modal-title">
-        {titleModal}
-      </Typography>
-    );
-
-    const titleField = (
-      <TextField
-        required
-        id="title"
-        label="Required title"
-        className={classes.textField}
-        value={title}
-        onChange={e => this.handleChange('title', e)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Title />
-            </InputAdornment>
-          ),
-        }}
-      />
-    );
-
-    const textField = (
-      <TextField
-        multiline
-        id="text"
-        label="Text"
-        className={classes.textField}
-        value={text}
-        onChange={e => this.handleChange('text', e)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Subject />
-            </InputAdornment>
-          ),
-        }}
-      />
-    );
-
-    const priorityField = (
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="priority">Priority</InputLabel>
-        <Select
-          value={priority}
-          onChange={event => this.handleChangeSelect(event)}
-          inputProps={{
-            name: 'priority',
-            id: 'priority',
-          }}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value="low">
-            Low
-            <LowPriority className={classes.selectIcon} />
-          </MenuItem>
-          <MenuItem value="medium">Medium</MenuItem>
-          <MenuItem value="height">
-            Height
-            <PriorityHigh color="error" className={classes.selectIcon} />
-          </MenuItem>
-        </Select>
-      </FormControl>
-    );
-
-    const dueDateField = (
-      <TextField
-        id="dueDate"
-        label="Due Date"
-        type="date"
-        defaultValue={dueDate}
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={e => this.handleChange('dueDate', e)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <AccessTime />
-            </InputAdornment>
-          ),
-        }}
-      />
-    );
-
     const btn = title && title.trim() && (
-      <Button
-        variant="contained"
-        onClick={() => {
+      <FieldButton
+        btnText={btnText}
+        handleClick={() => {
           action({
             id: card && card.id,
             listId,
@@ -183,9 +86,7 @@ class CardModal extends React.Component {
           });
           handleHideModal();
         }}
-      >
-        {btnText}
-      </Button>
+      />
     );
 
     return (
@@ -196,11 +97,27 @@ class CardModal extends React.Component {
           onClose={() => handleHideModal()}
         >
           <div className={classes.paper}>
-            {titleModalHtml}
-            {titleField}
-            {textField}
-            {priorityField}
-            {dueDateField}
+            <ModalTitle titleModal={titleModal} />
+            <FieldTitle
+              title={title}
+              classes={classes}
+              handleChange={e => this.handleChange('title', e)}
+            />
+            <FieldText
+              text={text}
+              classes={classes}
+              handleChange={e => this.handleChange('text', e)}
+            />
+            <FieldPriority
+              priority={priority}
+              classes={classes}
+              handleChange={e => this.handleChangeSelect(e)}
+            />
+            <FieldDueDate
+              dueDate={dueDate}
+              classes={classes}
+              handleChange={e => this.handleChange('dueDate', e)}
+            />
             {btn}
           </div>
         </Modal>

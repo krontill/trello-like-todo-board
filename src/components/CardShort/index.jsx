@@ -7,13 +7,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';
 import Subject from '@material-ui/icons/Subject';
-import AccessTime from '@material-ui/icons/AccessTime';
-import PriorityHigh from '@material-ui/icons/PriorityHigh';
-import LowPriority from '@material-ui/icons/LowPriority';
 import { withStyles } from '@material-ui/core';
 import moment from 'moment';
 import classNames from 'classnames';
 import LabelsShort from '../LabelsShort';
+import IconLowPriority from '../IconLowPriority';
+import IconPriorityHigh from '../IconPriorityHigh';
+import IconDueDate from '../IconDueDate';
 import { EDIT_CARD_MODAL } from '../../constants';
 
 const styles = () => ({
@@ -97,29 +97,16 @@ class CardShort extends React.Component {
     );
 
     const priorityHeightIcon = card.priority && card.priority === 'height' && (
-      <PriorityHigh
-        color="error"
-        className={classes.icon}
-        fontSize="small"
-        titleAccess="High priority."
-      />
+      <IconPriorityHigh classes={classes.icon} />
     );
 
     const priorityLowIcon = card.priority && card.priority === 'low' && (
-      <LowPriority
-        className={classes.icon}
-        fontSize="small"
-        titleAccess="Low priority."
-      />
+      <IconLowPriority classes={classes.icon} />
     );
 
     const dueDateIcon = card.dueDate && (
       <React.Fragment>
-        <AccessTime
-          className={classes.icon}
-          fontSize="small"
-          titleAccess="This card id due later."
-        />
+        <IconDueDate classes={classes.icon} />
         <span className={classes.date}>
           {moment(card.dueDate).format('MMM D')}
         </span>

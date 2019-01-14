@@ -109,7 +109,7 @@ class SettingBg extends React.Component {
         }}
         className={classMenuItem(option)}
       >
-        >{option}
+        {option}
       </MenuItem>
     ));
 
