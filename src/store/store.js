@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { createStore, compose, applyMiddleware } from 'redux';
-import rootReducer from '../reducers/index';
+import rootReducer from '../reducers';
 
 const localStorageMiddleware = ({ getState }) => next => action => {
   const result = next(action);

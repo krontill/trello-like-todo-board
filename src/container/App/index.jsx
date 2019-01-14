@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import ModalRoot from '../ModalRoot/index';
+import ModalRoot from '../ModalRoot';
 import {
   BLUE,
   YELLOW,
