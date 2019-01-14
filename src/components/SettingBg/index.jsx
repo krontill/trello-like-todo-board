@@ -78,6 +78,7 @@ class SettingBg extends React.Component {
 
     const icon = (
       <IconButton
+        title="Setting background"
         aria-label="Setting background"
         ria-owns={anchorEl ? 'setting-menu' : undefined}
         aria-haspopup="true"

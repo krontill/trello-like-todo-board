@@ -49,7 +49,11 @@ class ListModal extends React.Component {
     const { open, title } = this.state;
 
     const icon = (
-      <IconButton aria-label="Add list cards" onClick={() => this.handleOpen()}>
+      <IconButton
+        title="Add list cards"
+        aria-label="Add list cards"
+        onClick={() => this.handleOpen()}
+      >
         <AddBox nativeColor="rgba(255, 255, 255, 0.3)" />
       </IconButton>
     );

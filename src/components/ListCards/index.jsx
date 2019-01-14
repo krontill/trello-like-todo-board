@@ -76,7 +76,8 @@ class ListCards extends React.Component {
 
     const icon = (
       <IconButton
-        aria-label="More"
+        title="Open list menu"
+        aria-label="Open list menu"
         aria-owns={open ? 'long-menu' : undefined}
         aria-haspopup="true"
         onClick={event => this.handleClickIcon(event)}
