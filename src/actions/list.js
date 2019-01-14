@@ -8,11 +8,11 @@ import {
   DELETE_CARD,
 } from '../constants';
 
-export const addList = title => ({
+export const addList = (title = null) => ({
   type: ADD_LIST,
   payload: {
     id: uuidv4(),
-    title: title || null,
+    title,
     cards: null,
   },
 });
@@ -27,10 +27,10 @@ export const editList = (listId, title) => ({
 export const addCard = ({
   listId,
   title,
-  text,
-  priority,
-  dueDate,
-  labels,
+  text = null,
+  priority = null,
+  dueDate = null,
+  labels = null,
 }) => ({
   type: ADD_CARD,
   payload: {
@@ -38,10 +38,10 @@ export const addCard = ({
     card: {
       id: uuidv4(),
       title,
-      text: text || null,
-      priority: priority || null,
-      dueDate: dueDate || null,
-      labels: labels || null,
+      text,
+      priority,
+      dueDate,
+      labels,
     },
   },
 });
@@ -49,10 +49,10 @@ export const addCard = ({
 export const editCard = ({
   listId,
   title,
-  text,
-  priority,
-  dueDate,
-  labels,
+  text = null,
+  priority = null,
+  dueDate = null,
+  labels = null,
   id,
 }) => ({
   type: EDIT_CARD,
@@ -61,10 +61,10 @@ export const editCard = ({
     card: {
       id,
       title,
-      text: text || null,
-      priority: priority || null,
-      dueDate: dueDate || null,
-      labels: labels || null,
+      text,
+      priority,
+      dueDate,
+      labels,
     },
   },
 });
