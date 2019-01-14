@@ -137,7 +137,7 @@ class LabelsShort extends React.Component {
 
 LabelsShort.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  labels: PropTypes.objectOf(PropTypes.object).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(LabelsShort);
