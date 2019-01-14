@@ -6,6 +6,7 @@ import {
   ADD_LIST,
   DELETE_LIST,
   EDIT_LIST,
+  DELETE_CARD,
 } from '../constants';
 
 const initialState = [
@@ -108,6 +109,17 @@ export default (state = initialState, action) => {
           return newList;
         }
         return list;
+      });
+
+    case DELETE_CARD:
+      return state.map(list => {
+        const newList = list;
+        if (newList.id === action.payload.listId) {
+          newList.cards = newList.cards.filter(
+            card => card.id !== action.payload.card.id
+          );
+        }
+        return newList;
       });
 
     default:

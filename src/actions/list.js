@@ -5,6 +5,7 @@ import {
   ADD_LIST,
   DELETE_LIST,
   EDIT_LIST,
+  DELETE_CARD,
 } from '../constants';
 
 export const addList = title => ({
@@ -65,5 +66,13 @@ export const editCard = ({
       dueDate: dueDate || null,
       labels: labels || null,
     },
+  },
+});
+
+export const deleteCard = ({ listId, id }) => ({
+  type: DELETE_CARD,
+  payload: {
+    listId,
+    card: { id },
   },
 });

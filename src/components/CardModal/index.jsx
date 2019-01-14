@@ -68,6 +68,7 @@ class CardModal extends React.Component {
       handleHideModal,
       listId,
       card,
+      handleDeleteCard,
     } = this.props;
     const { title, text, priority, dueDate } = this.state;
 
@@ -83,6 +84,19 @@ class CardModal extends React.Component {
             priority,
             dueDate,
             labels: null,
+          });
+          handleHideModal();
+        }}
+      />
+    );
+
+    const btnDelete = card && card.id && (
+      <FieldButton
+        btnText="Delete card"
+        handleClick={() => {
+          handleDeleteCard({
+            listId,
+            id: card.id,
           });
           handleHideModal();
         }}
@@ -119,6 +133,7 @@ class CardModal extends React.Component {
               handleChange={e => this.handleChange('dueDate', e)}
             />
             {btn}
+            {btnDelete}
           </div>
         </Modal>
       </div>
@@ -133,6 +148,7 @@ CardModal.defaultProps = {
 CardModal.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   action: PropTypes.func.isRequired,
+  handleDeleteCard: PropTypes.func.isRequired,
   handleHideModal: PropTypes.func.isRequired,
   titleModal: PropTypes.string.isRequired,
   btnText: PropTypes.string.isRequired,

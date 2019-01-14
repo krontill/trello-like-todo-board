@@ -1,18 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { editCard } from '../../actions/list';
+import { editCard, deleteCard } from '../../actions/list';
 import { hideModal } from '../../actions/modal';
 import CardModal from '../../components/CardModal';
 
 const EditCardModal = props => {
-  const { handleEditCard, handleHideModal, listId, card } = props;
+  const {
+    handleEditCard,
+    handleHideModal,
+    listId,
+    card,
+    handleDeleteCard,
+  } = props;
 
   return (
     <CardModal
       card={card}
       listId={listId}
       action={handleEditCard}
+      handleDeleteCard={handleDeleteCard}
       handleHideModal={handleHideModal}
       titleModal="Edit card info"
       btnText="Save card"
@@ -22,6 +29,7 @@ const EditCardModal = props => {
 
 EditCardModal.propTypes = {
   handleEditCard: PropTypes.func.isRequired,
+  handleDeleteCard: PropTypes.func.isRequired,
   handleHideModal: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,
   card: PropTypes.shape({
@@ -38,6 +46,7 @@ const mapStateToProps = ({ list }) => ({ list });
 
 const mapDispatchToProps = dispatch => ({
   handleEditCard: card => dispatch(editCard(card)),
+  handleDeleteCard: card => dispatch(deleteCard(card)),
   handleHideModal: () => dispatch(hideModal()),
 });
 

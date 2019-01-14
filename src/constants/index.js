@@ -9,6 +9,7 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 export const ADD_CARD_MODAL = 'ADD_CARD_MODAL';
 export const EDIT_CARD_MODAL = 'EDIT_CARD_MODAL';
 export const EDIT_CARD = 'EDIT_CARD';
+export const DELETE_CARD = 'DELETE_CARD';
 export const CHANGE_BG = 'CHANGE_BG';
 export const UNDO = 'UNDO';
 export const REDO = 'REDO';
