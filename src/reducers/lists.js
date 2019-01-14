@@ -1,3 +1,4 @@
+import undoable from 'redux-undo';
 import uuidv4 from 'uuid/v4';
 import {
   ADD_CARD,
@@ -34,7 +35,7 @@ const initialState = [
   },
 ];
 
-export default (state = initialState, action) => {
+const lists = (state = initialState, action) => {
   switch (action.type) {
     case ADD_LIST:
       return [...state, action.payload];
@@ -96,3 +97,7 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+const undoableSetting = undoable(lists);
+
+export default undoableSetting;

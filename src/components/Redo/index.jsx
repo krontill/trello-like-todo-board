@@ -4,16 +4,22 @@ import IconButton from '@material-ui/core/IconButton';
 import RedoIcon from '@material-ui/icons/Redo';
 
 const Redo = props => {
-  const { handleRedo } = props;
+  const { onRedo, canRedo } = props;
   return (
-    <IconButton aria-label="Redo" onClick={() => handleRedo()}>
+    <IconButton
+      title="Redo"
+      aria-label="Redo"
+      onClick={() => onRedo()}
+      disabled={!canRedo}
+    >
       <RedoIcon nativeColor="rgba(255, 255, 255, 0.3)" />
     </IconButton>
   );
 };
 
 Redo.propTypes = {
-  handleRedo: PropTypes.func.isRequired,
+  onRedo: PropTypes.func.isRequired,
+  canRedo: PropTypes.bool.isRequired,
 };
 
 export default Redo;

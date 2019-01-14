@@ -4,16 +4,22 @@ import IconButton from '@material-ui/core/IconButton';
 import UndoIcon from '@material-ui/icons/Undo';
 
 const Undo = props => {
-  const { handleUndo } = props;
+  const { onUndo, canUndo } = props;
   return (
-    <IconButton aria-label="Undo" onClick={() => handleUndo()}>
+    <IconButton
+      title="Undo"
+      aria-label="Undo"
+      onClick={() => onUndo()}
+      disabled={!canUndo}
+    >
       <UndoIcon nativeColor="rgba(255, 255, 255, 0.3)" />
     </IconButton>
   );
 };
 
 Undo.propTypes = {
-  handleUndo: PropTypes.func.isRequired,
+  onUndo: PropTypes.func.isRequired,
+  canUndo: PropTypes.bool.isRequired,
 };
 
 export default Undo;

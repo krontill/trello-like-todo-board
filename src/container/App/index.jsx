@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import ModalRoot from '../ModalRoot';
 import {
   BLUE,
@@ -15,7 +16,7 @@ import {
 import sea from './sea.jpg';
 import mount from './mount.jpg';
 import { addList, deleteList, editList } from '../../actions/list';
-import { changeBg, redo, undo } from '../../actions/setting';
+import changeBg from '../../actions/setting';
 import Logo from '../../components/Logo';
 import Undo from '../../components/Undo';
 import Redo from '../../components/Redo';
@@ -81,8 +82,10 @@ const App = props => {
     setting,
     handleAddList,
     handleChangeBg,
-    handleUndo,
-    handleRedo,
+    onUndo,
+    onRedo,
+    canUndo,
+    canRedo,
     lists,
     handleEditList,
     handleShowModal,
@@ -109,8 +112,8 @@ const App = props => {
         <div className="search">search</div>
         <Logo />
         <div className={classes.toolBar}>
-          <Undo handleUndo={handleUndo} />
-          <Redo handleRedo={handleRedo} />
+          <Undo onUndo={onUndo} canUndo={canUndo} />
+          <Redo onRedo={onRedo} canRedo={canRedo} />
           <SettingBg handleChangeBg={handleChangeBg} />
           <ListModal action={handleAddList} />
         </div>
@@ -126,25 +129,32 @@ App.propTypes = {
   setting: PropTypes.objectOf(PropTypes.string).isRequired,
   handleAddList: PropTypes.func.isRequired,
   handleChangeBg: PropTypes.func.isRequired,
-  handleUndo: PropTypes.func.isRequired,
-  handleRedo: PropTypes.func.isRequired,
+  onUndo: PropTypes.func.isRequired,
+  onRedo: PropTypes.func.isRequired,
+  canUndo: PropTypes.bool.isRequired,
+  canRedo: PropTypes.bool.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleEditList: PropTypes.func.isRequired,
   handleShowModal: PropTypes.func.isRequired,
   handleDeleteList: PropTypes.func.isRequired,
 };
 
-const mapStateFromProps = ({ setting, lists }) => ({ setting, lists });
+const mapStateFromProps = ({ setting, lists }) => ({
+  setting: setting.present,
+  lists: lists.present,
+  canUndo: setting.past.length > 0,
+  canRedo: setting.future.length > 0,
+});
 
 const mapDispatchToProps = dispatch => ({
   handleAddList: list => dispatch(addList(list)),
   handleChangeBg: bg => dispatch(changeBg(bg)),
-  handleUndo: () => dispatch(undo()),
-  handleRedo: () => dispatch(redo()),
   handleEditList: (id, newTitle) => dispatch(editList(id, newTitle)),
   handleShowModal: (modalType, modalProps) =>
     dispatch(showModal(modalType, modalProps)),
   handleDeleteList: listId => dispatch(deleteList(listId)),
+  onUndo: () => dispatch(UndoActionCreators.undo()),
+  onRedo: () => dispatch(UndoActionCreators.redo()),
 });
 
 export default connect(

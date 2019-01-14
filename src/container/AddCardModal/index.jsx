@@ -25,7 +25,7 @@ AddCardModal.propTypes = {
   listId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ list }) => ({ list });
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   handleAddCard: card => dispatch(addCard(card)),

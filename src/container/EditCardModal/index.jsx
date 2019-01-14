@@ -42,7 +42,7 @@ EditCardModal.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({ list }) => ({ list });
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   handleEditCard: card => dispatch(editCard(card)),
