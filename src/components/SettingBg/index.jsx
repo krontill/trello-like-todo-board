@@ -17,16 +17,7 @@ import {
 import mount from './mount.jpeg';
 import sea from './sea.jpeg';
 
-const options = [
-  'Blue',
-  'Yellow',
-  'Green',
-  'Orange',
-  'Red',
-  'Purple',
-  'Mount',
-  'Sea',
-];
+const optionsImages = ['Mount', 'Sea'];
 
 const style = () => ({
   item: {
@@ -82,7 +73,7 @@ class SettingBg extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { handleChangeBg, classes } = this.props;
+    const { handleChangeBg, classes, labels } = this.props;
 
     const icon = (
       <IconButton
@@ -99,6 +90,8 @@ class SettingBg extends React.Component {
       classNames(classes.item, {
         [classes[`item--${option.toLowerCase()}`]]: true,
       });
+
+    const options = [...labels, ...optionsImages];
 
     const menuItemTemplate = options.map(option => (
       <MenuItem
@@ -132,6 +125,7 @@ class SettingBg extends React.Component {
 SettingBg.propTypes = {
   handleChangeBg: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default withStyles(style)(SettingBg);

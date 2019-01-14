@@ -2,16 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core';
+import Select from 'react-select';
+import classNames from 'classnames';
 import ModalTitle from '../ModalTitle';
 import FieldTitle from '../FieldTitle';
 import FieldText from '../FieldText';
 import FieldPriority from '../FieldPriority';
 import FieldDueDate from '../FieldDueDate';
 import FieldButton from '../FieldButton';
+import createLablesOptions from '../../utils/createLablesOptions';
 
 const styles = theme => ({
   textField: {
     display: 'flex',
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 4,
+  },
+  selectField: {
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 4,
   },
@@ -47,6 +54,7 @@ class CardModal extends React.Component {
       text: (props.card && props.card.text) || '',
       priority: (props.card && props.card.priority) || '',
       dueDate: (props.card && props.card.dueDate) || '',
+      cardLabels: (props.card && props.card.labels) || null,
     };
   }
 
@@ -62,6 +70,12 @@ class CardModal extends React.Component {
     });
   }
 
+  handleChangeSelectLabels(selectLabels) {
+    this.setState({
+      cardLabels: selectLabels.map(label => label.value),
+    });
+  }
+
   render() {
     const {
       classes,
@@ -72,8 +86,9 @@ class CardModal extends React.Component {
       listId,
       card,
       handleDeleteCard,
+      labels,
     } = this.props;
-    const { title, text, priority, dueDate } = this.state;
+    const { title, text, priority, dueDate, cardLabels } = this.state;
 
     const btn = title && title.trim() && (
       <FieldButton
@@ -87,7 +102,7 @@ class CardModal extends React.Component {
             text,
             priority,
             dueDate,
-            labels: null,
+            labels: cardLabels,
           });
           handleHideModal();
         }}
@@ -106,6 +121,14 @@ class CardModal extends React.Component {
         }}
       />
     );
+
+    const options = createLablesOptions(labels);
+    const selectOptions = cardLabels && createLablesOptions(cardLabels);
+
+    const classSelect = classNames({
+      [classes.selectField]: true,
+      'basic-multi-select': true,
+    });
 
     return (
       <div>
@@ -136,6 +159,15 @@ class CardModal extends React.Component {
               classes={classes}
               handleChange={e => this.handleChange('dueDate', e)}
             />
+            <Select
+              className={classSelect}
+              options={options}
+              isMulti
+              defaultValue={selectOptions}
+              onChange={selectLabels =>
+                this.handleChangeSelectLabels(selectLabels)
+              }
+            />
             {btn}
             {btnDelete}
           </div>
@@ -164,8 +196,9 @@ CardModal.propTypes = {
     text: PropTypes.string,
     priority: PropTypes.string,
     dueDate: PropTypes.string,
-    labels: PropTypes.objectOf(PropTypes.object),
+    labels: PropTypes.arrayOf(PropTypes.string),
   }),
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default withStyles(styles)(CardModal);

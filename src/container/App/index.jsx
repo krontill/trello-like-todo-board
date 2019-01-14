@@ -87,6 +87,7 @@ const App = props => {
     handleEditList,
     handleShowModal,
     handleDeleteList,
+    labels,
   } = props;
 
   const classApp = classNames(classes.app, {
@@ -111,7 +112,7 @@ const App = props => {
         <div className={classes.toolBar}>
           <Undo handleUndo={handleUndo} />
           <Redo handleRedo={handleRedo} />
-          <SettingBg handleChangeBg={handleChangeBg} />
+          <SettingBg labels={labels} handleChangeBg={handleChangeBg} />
           <ListModal action={handleAddList} />
         </div>
       </header>
@@ -132,9 +133,14 @@ App.propTypes = {
   handleEditList: PropTypes.func.isRequired,
   handleShowModal: PropTypes.func.isRequired,
   handleDeleteList: PropTypes.func.isRequired,
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const mapStateFromProps = ({ setting, lists }) => ({ setting, lists });
+const mapStateFromProps = ({ setting, lists, labels }) => ({
+  setting,
+  lists,
+  labels,
+});
 
 const mapDispatchToProps = dispatch => ({
   handleAddList: list => dispatch(addList(list)),

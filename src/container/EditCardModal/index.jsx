@@ -12,10 +12,12 @@ const EditCardModal = props => {
     listId,
     card,
     handleDeleteCard,
+    labels,
   } = props;
 
   return (
     <CardModal
+      labels={labels}
       card={card}
       listId={listId}
       action={handleEditCard}
@@ -38,11 +40,12 @@ EditCardModal.propTypes = {
     text: PropTypes.string,
     priority: PropTypes.string,
     dueDate: PropTypes.string,
-    labels: PropTypes.objectOf(PropTypes.object),
+    labels: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const mapStateToProps = ({ list }) => ({ list });
+const mapStateToProps = ({ list, labels }) => ({ list, labels });
 
 const mapDispatchToProps = dispatch => ({
   handleEditCard: card => dispatch(editCard(card)),

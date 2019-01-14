@@ -117,9 +117,9 @@ class LabelsShort extends React.Component {
       <div className={classes.labels}>
         {labels.map(label => (
           <span
-            key={label.color + label.name}
+            key={label}
             className={classNames(labelClass, {
-              [classes[`label--${label.color}`]]: true,
+              [classes[`label--${label.toLowerCase()}`]]: true,
             })}
             onClick={() => this.handleClick()}
             onMouseOver={() => this.handleHover()}
@@ -127,7 +127,7 @@ class LabelsShort extends React.Component {
             onMouseLeave={() => this.handleLeave()}
             role="presentation"
           >
-            {open && label.name}
+            {open && label}
           </span>
         ))}
       </div>
@@ -137,7 +137,7 @@ class LabelsShort extends React.Component {
 
 LabelsShort.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  labels: PropTypes.arrayOf(PropTypes.object).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default withStyles(styles)(LabelsShort);

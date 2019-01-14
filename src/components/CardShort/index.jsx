@@ -150,7 +150,7 @@ CardShort.propTypes = {
     text: PropTypes.string,
     priority: PropTypes.string,
     dueDate: PropTypes.string,
-    labels: PropTypes.array,
+    labels: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   handleShowModal: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,

@@ -1,5 +1,4 @@
 import uuidv4 from 'uuid/v4';
-import { Set } from 'immutable';
 import {
   ADD_CARD,
   EDIT_CARD,
@@ -18,7 +17,7 @@ const initialState = [
         id: uuidv4(),
         title: 'Title Card',
         text: 'Text Card',
-        priority: null, // ['height' , 'medium', 'low']
+        priority: null,
         dueDate: null,
         labels: null,
       },
@@ -27,38 +26,9 @@ const initialState = [
         title:
           'As React is just a lib, it doesn’t dictate rules about how you should organize and structure your projects. This is nice, because it gives us freedom to try different approaches and adapt the ones that better fit for us. On the other hand, this could cause some confusion for devs that are starting in React world. As React is just a lib, it doesn’t dictate rules about how you should organize and structure your projects. This is nice, because it gives us freedom to try different approaches and adapt the ones that better fit for us. On the other hand, this could cause some confusion for devs that are starting in React world.',
         text: 'Text Card',
-        priority: 'low', // ['height' , 'medium', 'low']
+        priority: 'low',
         dueDate: '2019-01-02',
-        labels: Set([
-          {
-            color: 'green',
-            name: null,
-          },
-          {
-            color: 'green',
-            name: 'Ecology',
-          },
-          {
-            color: 'yellow',
-            name: 'Tasks for the summer. Tasks for the summer.',
-          },
-          {
-            color: 'orange',
-            name: null,
-          },
-          {
-            color: 'red',
-            name: null,
-          },
-          {
-            color: 'purple',
-            name: null,
-          },
-          {
-            color: 'blue',
-            name: null,
-          },
-        ]),
+        labels: ['Green', 'Red', 'Blue'],
       },
     ],
   },

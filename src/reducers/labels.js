@@ -1,32 +1,6 @@
-import { Set } from 'immutable';
 import { ADD_LABEL, REMOVE_LABEL } from '../constants';
 
-const initialState = Set([
-  {
-    color: 'green',
-    name: null,
-  },
-  {
-    color: 'yellow',
-    name: null,
-  },
-  {
-    color: 'orange',
-    name: null,
-  },
-  {
-    color: 'red',
-    name: null,
-  },
-  {
-    color: 'purple',
-    name: null,
-  },
-  {
-    color: 'blue',
-    name: null,
-  },
-]);
+const initialState = ['Green', 'Yellow', 'Orange', 'Red', 'Purple', 'Blue'];
 
 export default (state = initialState, action) => {
   switch (action.type) {
