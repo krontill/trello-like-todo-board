@@ -34,6 +34,9 @@ const styles = theme => ({
     marginLeft: '10px',
     verticalAlign: 'bottom',
   },
+  btn: {
+    marginRight: '16px',
+  },
 });
 
 class CardModal extends React.Component {
@@ -75,6 +78,7 @@ class CardModal extends React.Component {
     const btn = title && title.trim() && (
       <FieldButton
         btnText={btnText}
+        classes={classes.btn}
         handleClick={() => {
           action({
             id: card && card.id,
@@ -143,12 +147,13 @@ class CardModal extends React.Component {
 
 CardModal.defaultProps = {
   card: null,
+  handleDeleteCard: null,
 };
 
 CardModal.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   action: PropTypes.func.isRequired,
-  handleDeleteCard: PropTypes.func.isRequired,
+  handleDeleteCard: PropTypes.func,
   handleHideModal: PropTypes.func.isRequired,
   titleModal: PropTypes.string.isRequired,
   btnText: PropTypes.string.isRequired,
