@@ -11,6 +11,7 @@ import FieldPriority from '../FieldPriority';
 import FieldDueDate from '../FieldDueDate';
 import FieldButton from '../FieldButton';
 import createLablesOptions from '../../utils/createLablesOptions';
+import { LABELS } from '../../constants/colors';
 
 const styles = theme => ({
   textField: {
@@ -86,7 +87,6 @@ class CardModal extends React.Component {
       listId,
       card,
       handleDeleteCard,
-      labels,
     } = this.props;
     const { title, text, priority, dueDate, cardLabels } = this.state;
 
@@ -122,7 +122,7 @@ class CardModal extends React.Component {
       />
     );
 
-    const options = createLablesOptions(labels);
+    const options = createLablesOptions(LABELS);
     const selectOptions = cardLabels && createLablesOptions(cardLabels);
 
     const classSelect = classNames({
@@ -162,11 +162,13 @@ class CardModal extends React.Component {
             <Select
               className={classSelect}
               options={options}
+              placeholder="Select labels..."
               isMulti
               defaultValue={selectOptions}
               onChange={selectLabels =>
                 this.handleChangeSelectLabels(selectLabels)
               }
+              isClearable
             />
             {btn}
             {btnDelete}
@@ -198,7 +200,6 @@ CardModal.propTypes = {
     dueDate: PropTypes.string,
     labels: PropTypes.arrayOf(PropTypes.string),
   }),
-  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default withStyles(styles)(CardModal);

@@ -6,11 +6,10 @@ import { hideModal } from '../../actions/modal';
 import CardModal from '../../components/CardModal';
 
 const AddCardModal = props => {
-  const { handleAddCard, handleHideModal, listId, labels } = props;
+  const { handleAddCard, handleHideModal, listId } = props;
 
   return (
     <CardModal
-      labels={labels}
       listId={listId}
       action={handleAddCard}
       handleHideModal={handleHideModal}
@@ -24,10 +23,9 @@ AddCardModal.propTypes = {
   handleAddCard: PropTypes.func.isRequired,
   handleHideModal: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,
-  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const mapStateToProps = ({ list, labels }) => ({ list, labels });
+const mapStateToProps = ({ list }) => ({ list });
 
 const mapDispatchToProps = dispatch => ({
   handleAddCard: card => dispatch(addCard(card)),

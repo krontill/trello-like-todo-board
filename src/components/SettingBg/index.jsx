@@ -13,6 +13,7 @@ import {
   ORANGE,
   RED,
   PURPLE,
+  LABELS,
 } from '../../constants/colors';
 import mount from './mount.jpeg';
 import sea from './sea.jpeg';
@@ -73,7 +74,7 @@ class SettingBg extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { handleChangeBg, classes, labels } = this.props;
+    const { handleChangeBg, classes } = this.props;
 
     const icon = (
       <IconButton
@@ -91,7 +92,7 @@ class SettingBg extends React.Component {
         [classes[`item--${option.toLowerCase()}`]]: true,
       });
 
-    const options = [...labels, ...optionsImages];
+    const options = [...LABELS, ...optionsImages];
 
     const menuItemTemplate = options.map(option => (
       <MenuItem
@@ -125,7 +126,6 @@ class SettingBg extends React.Component {
 SettingBg.propTypes = {
   handleChangeBg: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default withStyles(style)(SettingBg);

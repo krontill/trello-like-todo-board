@@ -1,3 +1,4 @@
+export const LABELS = ['Green', 'Yellow', 'Orange', 'Red', 'Purple', 'Blue'];
 export const BLUE = '#0079bf';
 export const BLUE_HOVER = '#055a8c';
 export const YELLOW = '#f2d600';
