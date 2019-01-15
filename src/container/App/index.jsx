@@ -18,12 +18,11 @@ import mount from './mount.jpg';
 import { addList, deleteList, editList } from '../../actions/list';
 import changeBg from '../../actions/setting';
 import Logo from '../../components/Logo';
-import Undo from '../../components/Undo';
-import Redo from '../../components/Redo';
 import SettingBg from '../../components/SettingBg';
 import ListModal from '../../components/ListModal';
 import { showModal } from '../../actions/modal';
 import ListCards from '../../components/ListCards';
+import UndoRedo from '../../components/UndoRedo';
 
 const styles = () => ({
   app: {
@@ -112,8 +111,12 @@ const App = props => {
         <div className="search">search</div>
         <Logo />
         <div className={classes.toolBar}>
-          <Undo onUndo={onUndo} canUndo={canUndo} />
-          <Redo onRedo={onRedo} canRedo={canRedo} />
+          <UndoRedo
+            onUndo={onUndo}
+            canUndo={canUndo}
+            onRedo={onRedo}
+            canRedo={canRedo}
+          />
           <SettingBg handleChangeBg={handleChangeBg} />
           <ListModal action={handleAddList} />
         </div>
