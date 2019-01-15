@@ -96,16 +96,21 @@ class ListCards extends React.Component {
 
     const cardsTemplate =
       list.cards.length > 0 &&
-      list.cards.map(cardId => (
-        <CardShort
-          key={cardId}
-          card={cards.filter(card => card.id === cardId)[0]}
-          listId={list.id}
-          handleSelectCard={handleSelectCard}
-          selectedCard={selectedCard === cardId}
-          handleShowModal={handleShowModal}
-        />
-      ));
+      cards &&
+      list.cards.map(cardId => {
+        const currentCard = cards.filter(card => card.id === cardId)[0];
+        if (!currentCard) return null; // if undo delete card - error =\
+        return (
+          <CardShort
+            key={cardId}
+            card={cards.filter(card => card.id === cardId)[0]}
+            listId={list.id}
+            handleSelectCard={handleSelectCard}
+            selectedCard={selectedCard === cardId}
+            handleShowModal={handleShowModal}
+          />
+        );
+      });
 
     const title = (
       <Typography
