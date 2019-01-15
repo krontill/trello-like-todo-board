@@ -70,7 +70,15 @@ class ListCards extends React.Component {
   }
 
   render() {
-    const { classes, list, handleShowModal, handleDeleteList } = this.props;
+    const {
+      classes,
+      list,
+      handleShowModal,
+      handleDeleteList,
+      selectedCard,
+      handleSelectCard,
+      cards,
+    } = this.props;
     const { anchorEl, newTitle, value } = this.state;
     const open = Boolean(anchorEl);
 
@@ -87,12 +95,14 @@ class ListCards extends React.Component {
     );
 
     const cardsTemplate =
-      list.cards &&
-      list.cards.map(card => (
+      list.cards.length > 0 &&
+      list.cards.map(cardId => (
         <CardShort
-          key={card.id}
-          card={card}
+          key={cardId}
+          card={cards.filter(card => card.id === cardId)[0]}
           listId={list.id}
+          handleSelectCard={handleSelectCard}
+          selectedCard={selectedCard === cardId}
           handleShowModal={handleShowModal}
         />
       ));
@@ -148,16 +158,23 @@ class ListCards extends React.Component {
   }
 }
 
+ListCards.defaultProps = {
+  selectedCard: null,
+};
+
 ListCards.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   list: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string,
-    cards: PropTypes.arrayOf(PropTypes.object),
+    cards: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
+  cards: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleEditList: PropTypes.func.isRequired,
   handleShowModal: PropTypes.func.isRequired,
   handleDeleteList: PropTypes.func.isRequired,
+  handleSelectCard: PropTypes.func.isRequired,
+  selectedCard: PropTypes.string,
 };
 
 export default withStyles(styles)(ListCards);

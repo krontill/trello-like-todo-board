@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addCard } from '../../actions/list';
+import { addCard } from '../../actions/card';
+import { addCardInList } from '../../actions/list';
 import { hideModal } from '../../actions/modal';
 import CardModal from '../../components/CardModal';
 
@@ -28,7 +29,10 @@ AddCardModal.propTypes = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  handleAddCard: card => dispatch(addCard(card)),
+  handleAddCard: card => {
+    dispatch(addCardInList(card.listId, card.id));
+    dispatch(addCard(card));
+  },
   handleHideModal: () => dispatch(hideModal()),
 });
 

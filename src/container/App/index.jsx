@@ -15,13 +15,12 @@ import {
 } from '../../constants/colors';
 import sea from './sea.jpg';
 import mount from './mount.jpg';
-import { addList, deleteList, editList } from '../../actions/list';
+import { addList } from '../../actions/list';
 import changeBg from '../../actions/setting';
 import Logo from '../../components/Logo';
 import SettingBg from '../../components/SettingBg';
 import ListModal from '../../components/ListModal';
-import { showModal } from '../../actions/modal';
-import ListCards from '../../components/ListCards';
+import Content from '../Content';
 import UndoRedo from '../../components/UndoRedo';
 
 const styles = () => ({
@@ -66,13 +65,6 @@ const styles = () => ({
   toolBar: {
     display: 'flex',
   },
-  content: {
-    flex: '1 0 100%',
-    padding: '4px',
-    display: 'flex',
-    alignItems: 'flex-start',
-    overflowX: 'auto',
-  },
 });
 
 const App = props => {
@@ -85,25 +77,11 @@ const App = props => {
     onRedo,
     canUndo,
     canRedo,
-    lists,
-    handleEditList,
-    handleShowModal,
-    handleDeleteList,
   } = props;
 
   const classApp = classNames(classes.app, {
     [classes[`app--${setting.bg}`]]: true,
   });
-
-  const listsTemplate = lists.map(list => (
-    <ListCards
-      list={list}
-      key={list.id}
-      handleEditList={handleEditList}
-      handleShowModal={handleShowModal}
-      handleDeleteList={handleDeleteList}
-    />
-  ));
 
   return (
     <div className={classApp}>
@@ -121,7 +99,7 @@ const App = props => {
           <ListModal action={handleAddList} />
         </div>
       </header>
-      <div className={classes.content}>{listsTemplate}</div>
+      <Content />
       <ModalRoot />
     </div>
   );
@@ -136,31 +114,30 @@ App.propTypes = {
   onRedo: PropTypes.func.isRequired,
   canUndo: PropTypes.bool.isRequired,
   canRedo: PropTypes.bool.isRequired,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleEditList: PropTypes.func.isRequired,
-  handleShowModal: PropTypes.func.isRequired,
-  handleDeleteList: PropTypes.func.isRequired,
 };
 
-const mapStateFromProps = ({ setting, lists }) => ({
+const mapStateToProps = ({ setting, lists, selectedCard, cards }) => ({
   setting: setting.present,
-  lists: lists.present,
-  canUndo: setting.past.length > 0 || lists.past.length > 0,
-  canRedo: setting.future.length > 0 || lists.future.length > 0,
+  canUndo:
+    setting.past.length > 0 ||
+    lists.past.length > 0 ||
+    selectedCard.past.length > 0 ||
+    cards.past.length > 0,
+  canRedo:
+    setting.future.length > 0 ||
+    lists.future.length > 0 ||
+    selectedCard.future.length > 0 ||
+    cards.future.length > 0,
 });
 
 const mapDispatchToProps = dispatch => ({
   handleAddList: list => dispatch(addList(list)),
   handleChangeBg: bg => dispatch(changeBg(bg)),
-  handleEditList: (id, newTitle) => dispatch(editList(id, newTitle)),
-  handleShowModal: (modalType, modalProps) =>
-    dispatch(showModal(modalType, modalProps)),
-  handleDeleteList: listId => dispatch(deleteList(listId)),
   onUndo: () => dispatch(UndoActionCreators.undo()),
   onRedo: () => dispatch(UndoActionCreators.redo()),
 });
 
 export default connect(
-  mapStateFromProps,
+  mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(App));

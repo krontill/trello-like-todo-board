@@ -35,6 +35,12 @@ const styles = () => ({
       opacity: 1,
     },
   },
+  selectedCard: {
+    background: '#d3d4d5',
+    '&:hover': {
+      background: '#e4e5e6',
+    },
+  },
   title: {
     fontSize: '0.875rem',
     lineHeight: '1.42',
@@ -67,13 +73,21 @@ class CardShort extends React.Component {
   }
 
   render() {
-    const { classes, card, handleShowModal, listId } = this.props;
+    const {
+      classes,
+      card,
+      handleShowModal,
+      selectedCard,
+      handleSelectCard,
+      listId,
+    } = this.props;
     const { active } = this.state;
 
     const icon = (
       <IconButton
         title="Edit card"
         aria-label="Edit card"
+        onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
         onBlur={() => this.handleChangeActiveCard(false)}
         onFocusVisible={() => this.handleChangeActiveCard(true)}
       >
@@ -119,6 +133,7 @@ class CardShort extends React.Component {
     const cardClass = classNames({
       [classes.card]: true,
       [classes.cardActive]: active,
+      [classes.selectedCard]: selectedCard,
     });
 
     return (
@@ -128,11 +143,9 @@ class CardShort extends React.Component {
           classes={{ action: classes.action }}
           action={icon}
           title={title}
-          onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
+          onClick={() => handleSelectCard(card.id)}
         />
-        <CardContent
-          onClick={() => handleShowModal(EDIT_CARD_MODAL, { listId, card })}
-        >
+        <CardContent>
           {textIcon}
           {priorityHeightIcon}
           {priorityLowIcon}
@@ -154,6 +167,8 @@ CardShort.propTypes = {
     labels: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   handleShowModal: PropTypes.func.isRequired,
+  handleSelectCard: PropTypes.func.isRequired,
+  selectedCard: PropTypes.bool.isRequired,
   listId: PropTypes.string.isRequired,
 };
 

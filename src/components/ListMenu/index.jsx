@@ -42,7 +42,7 @@ ListMenu.propTypes = {
   list: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string,
-    cards: PropTypes.arrayOf(PropTypes.object),
+    cards: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   handleDeleteList: PropTypes.func.isRequired,
 };

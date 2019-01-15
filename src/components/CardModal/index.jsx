@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core';
 import Select from 'react-select';
 import classNames from 'classnames';
+import uuidv4 from 'uuid/v4';
 import ModalTitle from '../ModalTitle';
 import FieldTitle from '../FieldTitle';
 import FieldText from '../FieldText';
@@ -96,7 +97,7 @@ class CardModal extends React.Component {
         classes={classes.btn}
         handleClick={() => {
           action({
-            id: card && card.id,
+            id: (card && card.id) || uuidv4(),
             listId,
             title: title.trim(),
             text,
@@ -113,10 +114,7 @@ class CardModal extends React.Component {
       <FieldButton
         btnText="Delete card"
         handleClick={() => {
-          handleDeleteCard({
-            listId,
-            id: card.id,
-          });
+          handleDeleteCard(listId, card.id);
           handleHideModal();
         }}
       />
