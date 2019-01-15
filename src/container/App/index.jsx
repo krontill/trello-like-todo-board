@@ -145,8 +145,8 @@ App.propTypes = {
 const mapStateFromProps = ({ setting, lists }) => ({
   setting: setting.present,
   lists: lists.present,
-  canUndo: setting.past.length > 0,
-  canRedo: setting.future.length > 0,
+  canUndo: setting.past.length > 0 || lists.past.length > 0,
+  canRedo: setting.future.length > 0 || lists.future.length > 0,
 });
 
 const mapDispatchToProps = dispatch => ({

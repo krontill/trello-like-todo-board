@@ -19,11 +19,11 @@ class UndoRedo extends Component {
   }
 
   handleKeyDown(e) {
-    const { onRedo, onUndo } = this.props;
-    if (e.keyCode === 90 && e.ctrlKey) {
+    const { onRedo, canRedo, onUndo, canUndo } = this.props;
+    if (e.keyCode === 90 && e.ctrlKey && canUndo) {
       onUndo();
     }
-    if (e.keyCode === 89 && e.ctrlKey) {
+    if (e.keyCode === 89 && e.ctrlKey && canRedo) {
       onRedo();
     }
   }
