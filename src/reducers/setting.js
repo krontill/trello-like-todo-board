@@ -14,6 +14,6 @@ const setting = (state = initialState, action) => {
   }
 };
 
-const undoableSetting = undoable(setting);
+const undoableSetting = undoable(setting, { limit: 10 });
 
 export default undoableSetting;

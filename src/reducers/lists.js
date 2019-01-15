@@ -98,6 +98,6 @@ const lists = (state = initialState, action) => {
   }
 };
 
-const undoableLists = undoable(lists);
+const undoableLists = undoable(lists, { limit: 10 });
 
 export default undoableLists;
