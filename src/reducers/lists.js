@@ -25,12 +25,11 @@ const lists = (state = initialState, action) => {
 
     case ADD_CARD_IN_LIST:
       return state.map(list => {
-        if (list.id === action.payload.listId) {
-          const newList = list;
-          newList.cards.push(action.payload.cardId);
-          return newList;
-        }
-        return list;
+        if (list.id !== action.payload.listId) return list;
+
+        const newList = { ...list };
+        newList.cards.push(action.payload.cardId);
+        return newList;
       });
 
     case MOVE_CARD_IN_LIST:
@@ -45,16 +44,16 @@ const lists = (state = initialState, action) => {
         const newSelectedCardIndex = selectedCardIndex + action.payload.mapped;
 
         newList.cards = newList.cards.map((card, index, array) => {
-          if (index === newSelectedCardIndex) {
+          if (index === newSelectedCardIndex)
             return action.payload.selectedCard;
-          }
+
           if (
             index === selectedCardIndex &&
             newSelectedCardIndex >= 0 &&
             newSelectedCardIndex < array.length
-          ) {
+          )
             return list.cards[newSelectedCardIndex];
-          }
+
           return card;
         });
 
@@ -70,6 +69,7 @@ const lists = (state = initialState, action) => {
         const selectedCardIndex = list.cards.indexOf(
           action.payload.selectedCard
         );
+
         if (selectedCardIndex === -1) return list;
 
         nextListForSelectedCardIndex = index + action.payload.mapped;
@@ -93,14 +93,13 @@ const lists = (state = initialState, action) => {
 
     case DELETE_CARD_IN_LIST:
       return state.map(list => {
-        if (list.id === action.payload.listId) {
-          const newList = list;
-          newList.cards = newList.cards.filter(
-            cardId => cardId !== action.payload.cardId
-          );
-          return newList;
-        }
-        return list;
+        if (list.id !== action.payload.listId) return list;
+
+        const newList = { ...list };
+        newList.cards = newList.cards.filter(
+          cardId => cardId !== action.payload.cardId
+        );
+        return newList;
       });
 
     case DELETE_LIST:
@@ -108,12 +107,11 @@ const lists = (state = initialState, action) => {
 
     case EDIT_LIST:
       return state.map(list => {
-        if (list.id === action.payload.listId) {
-          const newList = list;
-          newList.title = action.payload.title;
-          return newList;
-        }
-        return list;
+        if (list.id !== action.payload.listId) return list;
+
+        const newList = { ...list };
+        newList.title = action.payload.title;
+        return newList;
       });
 
     default:
