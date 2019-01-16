@@ -53,6 +53,10 @@ class ListCards extends React.Component {
     handleEditList(id, newTitle);
   }
 
+  handleBlurTitle() {
+    this.setState({ newTitle: false });
+  }
+
   handleClickTitle() {
     this.setState({ newTitle: true });
   }
@@ -118,6 +122,8 @@ class ListCards extends React.Component {
         component="span"
         className={classes.title}
         onClick={() => this.handleClickTitle()}
+        onFocus={() => this.handleClickTitle()}
+        tabIndex="0"
       >
         {list.title}
       </Typography>
@@ -130,6 +136,7 @@ class ListCards extends React.Component {
           multiline
           value={value}
           onChange={event => this.handleChange(event)}
+          onBlur={() => this.setNewTitle(list.id, value)}
         />
       </ClickAwayListener>
     );
