@@ -11,6 +11,7 @@ import {
 } from '../../actions/list';
 import { showModal } from '../../actions/modal';
 import { selectCard } from '../../actions/card';
+import { EDIT_CARD_MODAL } from '../../constants';
 
 const styles = theme => ({
   content: {
@@ -51,6 +52,9 @@ class Content extends Component {
       handleMoveCardInList,
       handleMoveCardBetweenLists,
       selectedCard,
+      handleShowModal,
+      lists,
+      cards,
     } = this.props;
     const modifiers = e.altKey || e.ctrlKey || e.metaKey || e.shiftKey;
     const mapped = map[e.keyCode];
@@ -61,6 +65,17 @@ class Content extends Component {
       if (mapped % 2 === 0)
         handleMoveCardBetweenLists(selectedCard, mapped - 1);
       handleMoveCardInList(selectedCard, mapped - 2);
+    }
+
+    if (!modifiers && e.keyCode === 13 && !!selectedCard) {
+      // Enter
+      let listId = null;
+      lists.forEach(list => {
+        if (list.cards.indexOf(selectedCard) !== -1) listId = list.id;
+      });
+      const card = cards.filter(item => item.id === selectedCard)[0];
+
+      if (listId && card) handleShowModal(EDIT_CARD_MODAL, { listId, card });
     }
   }
 
