@@ -70,9 +70,7 @@ class CardShort extends React.Component {
 
   handleChangeActiveCard(active) {
     const { card, handleSelectCard, selectedCard } = this.props;
-    if (active && !selectedCard) {
-      handleSelectCard(card.id);
-    }
+    if (active && !selectedCard) handleSelectCard(card.id);
     this.setState({ active });
   }
 

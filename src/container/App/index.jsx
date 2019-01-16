@@ -86,7 +86,7 @@ const App = props => {
   return (
     <div className={classApp}>
       <header className={classes.header}>
-        <div className="search">search</div>
+        <div className="search" />
         <Logo />
         <div className={classes.toolBar}>
           <UndoRedo
