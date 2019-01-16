@@ -141,13 +141,12 @@ class CardShort extends React.Component {
     });
 
     return (
-      <Card className={cardClass}>
+      <Card className={cardClass} onClick={() => handleSelectCard(card.id)}>
         {labels}
         <CardHeader
           classes={{ action: classes.action }}
           action={icon}
           title={title}
-          onClick={() => handleSelectCard(card.id)}
         />
         <CardContent>
           {textIcon}
