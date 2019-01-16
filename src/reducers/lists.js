@@ -6,6 +6,8 @@ import {
   EDIT_LIST,
   ADD_CARD_IN_LIST,
   DELETE_CARD_IN_LIST,
+  MOVE_CARD_IN_LIST,
+  MOVE_CARD_BETWEEN_LISTS,
 } from '../constants';
 
 const initialState = [
@@ -30,6 +32,64 @@ const lists = (state = initialState, action) => {
         }
         return list;
       });
+
+    case MOVE_CARD_IN_LIST:
+      return state.map(list => {
+        const selectedCardIndex = list.cards.indexOf(
+          action.payload.selectedCard
+        );
+
+        if (selectedCardIndex === -1) return list;
+
+        const newList = { ...list };
+        const newSelectedCardIndex = selectedCardIndex + action.payload.mapped;
+
+        newList.cards = newList.cards.map((card, index, array) => {
+          if (index === newSelectedCardIndex) {
+            return action.payload.selectedCard;
+          }
+          if (
+            index === selectedCardIndex &&
+            newSelectedCardIndex >= 0 &&
+            newSelectedCardIndex < array.length
+          ) {
+            return list.cards[newSelectedCardIndex];
+          }
+          return card;
+        });
+
+        return newList;
+      });
+
+    case MOVE_CARD_BETWEEN_LISTS: {
+      let nextListForSelectedCardIndex = null;
+      const validIndex = index =>
+        index !== null && index >= 0 && index < state.length;
+
+      const newState = state.map((list, index) => {
+        const selectedCardIndex = list.cards.indexOf(
+          action.payload.selectedCard
+        );
+        if (selectedCardIndex === -1) return list;
+
+        nextListForSelectedCardIndex = index + action.payload.mapped;
+        if (!validIndex(nextListForSelectedCardIndex)) return list;
+
+        const newCurrentList = { ...list };
+        newCurrentList.cards = newCurrentList.cards.filter(
+          cardId => cardId !== action.payload.selectedCard
+        );
+        return newCurrentList;
+      });
+
+      if (validIndex(nextListForSelectedCardIndex)) {
+        newState[nextListForSelectedCardIndex].cards.push(
+          action.payload.selectedCard
+        );
+      }
+
+      return newState;
+    }
 
     case DELETE_CARD_IN_LIST:
       return state.map(list => {

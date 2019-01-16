@@ -5,6 +5,8 @@ import {
   DELETE_LIST,
   ADD_CARD_IN_LIST,
   DELETE_CARD_IN_LIST,
+  MOVE_CARD_IN_LIST,
+  MOVE_CARD_BETWEEN_LISTS,
 } from '../constants';
 
 export const addList = (title = null) => ({
@@ -28,6 +30,22 @@ export const addCardInList = (listId, cardId) => ({
   payload: {
     listId,
     cardId,
+  },
+});
+
+export const moveCardInList = (selectedCard, mapped) => ({
+  type: MOVE_CARD_IN_LIST,
+  payload: {
+    selectedCard,
+    mapped,
+  },
+});
+
+export const moveCardBetweenLists = (selectedCard, mapped) => ({
+  type: MOVE_CARD_BETWEEN_LISTS,
+  payload: {
+    selectedCard,
+    mapped,
   },
 });
 

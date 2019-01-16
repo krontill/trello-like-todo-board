@@ -1,10 +1,4 @@
-import {
-  ADD_CARD,
-  DELETE_CARD,
-  EDIT_CARD,
-  MOVE_CARD,
-  SELECT_CARD,
-} from '../constants';
+import { ADD_CARD, DELETE_CARD, EDIT_CARD, SELECT_CARD } from '../constants';
 
 export const addCard = ({
   id,
@@ -49,15 +43,6 @@ export const deleteCard = (listId, cardId) => ({
   payload: {
     listId,
     cardId,
-  },
-});
-
-export const moveCard = (listId, id, mapped) => ({
-  type: MOVE_CARD,
-  payload: {
-    listId,
-    card: { id },
-    mapped,
   },
 });
 

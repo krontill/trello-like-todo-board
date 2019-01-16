@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import ListCards from '../../components/ListCards';
-import { deleteList, editList } from '../../actions/list';
+import {
+  deleteList,
+  editList,
+  moveCardInList,
+  moveCardBetweenLists,
+} from '../../actions/list';
 import { showModal } from '../../actions/modal';
-import { moveCard, selectCard } from '../../actions/card';
+import { selectCard } from '../../actions/card';
 
 const styles = () => ({
   content: {
@@ -18,14 +23,10 @@ const styles = () => ({
 });
 
 const map = {
-  38: 0, // Up
-  39: 1, // Right
-  40: 2, // Down
-  37: 3, // Left
-  87: 0, // W
-  68: 1, // D
-  83: 2, // S
-  65: 3, // A
+  37: 0, // Left
+  38: 1, // Up
+  39: 2, // Right
+  40: 3, // Down
 };
 
 class Content extends Component {
@@ -43,15 +44,21 @@ class Content extends Component {
   }
 
   handleKeyDown(e) {
-    const { handleMoveCard, selectedCard } = this.props;
+    const {
+      handleMoveCardInList,
+      handleMoveCardBetweenLists,
+      selectedCard,
+    } = this.props;
     const modifiers = e.altKey || e.ctrlKey || e.metaKey || e.shiftKey;
-    const mapped = map[e.keyCode] || null;
+    const mapped = map[e.keyCode];
 
-    if (!modifiers) {
-      if (!!mapped && !!selectedCard) {
-        e.stopPropagation();
-        e.preventDefault();
-        handleMoveCard(mapped);
+    if (!modifiers && mapped !== undefined && !!selectedCard) {
+      e.stopPropagation();
+      e.preventDefault();
+      if (mapped % 2 === 0) {
+        handleMoveCardBetweenLists(selectedCard, mapped - 1);
+      } else {
+        handleMoveCardInList(selectedCard, mapped - 2);
       }
     }
   }
@@ -95,7 +102,8 @@ Content.propTypes = {
   handleEditList: PropTypes.func.isRequired,
   handleShowModal: PropTypes.func.isRequired,
   handleDeleteList: PropTypes.func.isRequired,
-  handleMoveCard: PropTypes.func.isRequired,
+  handleMoveCardInList: PropTypes.func.isRequired,
+  handleMoveCardBetweenLists: PropTypes.func.isRequired,
   handleSelectCard: PropTypes.func.isRequired,
   selectedCard: PropTypes.string,
   cards: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -112,8 +120,9 @@ const mapDispatchToProps = dispatch => ({
   handleShowModal: (modalType, modalProps) =>
     dispatch(showModal(modalType, modalProps)),
   handleDeleteList: listId => dispatch(deleteList(listId)),
-  handleMoveCard: (listId, id, mapped) =>
-    dispatch(moveCard(listId, id, mapped)),
+  handleMoveCardInList: (id, mapped) => dispatch(moveCardInList(id, mapped)),
+  handleMoveCardBetweenLists: (id, mapped) =>
+    dispatch(moveCardBetweenLists(id, mapped)),
   handleSelectCard: id => dispatch(selectCard(id)),
 });
 
