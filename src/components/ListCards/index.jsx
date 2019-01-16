@@ -134,16 +134,6 @@ class ListCards extends React.Component {
       </ClickAwayListener>
     );
 
-    const menu = (
-      <ListMenu
-        anchorEl={anchorEl}
-        list={list}
-        open={open}
-        handleClose={() => this.handleClose()}
-        handleDeleteList={handleDeleteList}
-      />
-    );
-
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -152,7 +142,15 @@ class ListCards extends React.Component {
           action={icon}
           title={newTitle ? NewTitle : title}
         />
-        {open && menu}
+        {open && (
+          <ListMenu
+            anchorEl={anchorEl}
+            list={list}
+            open={open}
+            handleClose={() => this.handleClose()}
+            handleDeleteList={handleDeleteList}
+          />
+        )}
         <CardContent>{cardsTemplate}</CardContent>
         <CardActionArea
           className={classes.cardActionArea}
