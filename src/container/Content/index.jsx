@@ -12,13 +12,16 @@ import {
 import { showModal } from '../../actions/modal';
 import { selectCard } from '../../actions/card';
 
-const styles = () => ({
+const styles = theme => ({
   content: {
     flex: '1 0 100%',
     padding: '4px',
     display: 'flex',
     alignItems: 'flex-start',
     overflowX: 'auto',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+    },
   },
 });
 
