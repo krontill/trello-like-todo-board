@@ -3,8 +3,6 @@ import {
   ADD_LIST,
   EDIT_LIST,
   DELETE_LIST,
-  ADD_CARD_IN_LIST,
-  DELETE_CARD_IN_LIST,
   MOVE_CARD_IN_LIST,
   MOVE_CARD_BETWEEN_LISTS,
 } from '../constants';
@@ -25,14 +23,6 @@ export const editList = (listId, title) => ({
 
 export const deleteList = listId => ({ type: DELETE_LIST, payload: listId });
 
-export const addCardInList = (listId, cardId) => ({
-  type: ADD_CARD_IN_LIST,
-  payload: {
-    listId,
-    cardId,
-  },
-});
-
 export const moveCardInList = (selectedCard, mapped) => ({
   type: MOVE_CARD_IN_LIST,
   payload: {
@@ -46,13 +36,5 @@ export const moveCardBetweenLists = (selectedCard, mapped) => ({
   payload: {
     selectedCard,
     mapped,
-  },
-});
-
-export const deleteCardInList = (listId, cardId) => ({
-  type: DELETE_CARD_IN_LIST,
-  payload: {
-    listId,
-    cardId,
   },
 });

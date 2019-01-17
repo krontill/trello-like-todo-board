@@ -4,8 +4,8 @@ import {
   ADD_LIST,
   DELETE_LIST,
   EDIT_LIST,
-  ADD_CARD_IN_LIST,
-  DELETE_CARD_IN_LIST,
+  ADD_CARD,
+  DELETE_CARD,
   MOVE_CARD_IN_LIST,
   MOVE_CARD_BETWEEN_LISTS,
 } from '../constants';
@@ -23,12 +23,12 @@ const lists = (state = initialState, action) => {
     case ADD_LIST:
       return [...state, action.payload];
 
-    case ADD_CARD_IN_LIST:
+    case ADD_CARD:
       return state.map(list => {
         if (list.id !== action.payload.listId) return list;
 
         const newList = { ...list };
-        newList.cards.push(action.payload.cardId);
+        newList.cards.push(action.payload.id);
         return newList;
       });
 
@@ -91,7 +91,7 @@ const lists = (state = initialState, action) => {
       return newState;
     }
 
-    case DELETE_CARD_IN_LIST:
+    case DELETE_CARD:
       return state.map(list => {
         if (list.id !== action.payload.listId) return list;
 

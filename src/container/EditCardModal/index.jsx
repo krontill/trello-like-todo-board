@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { editCard, deleteCard } from '../../actions/card';
 import { hideModal } from '../../actions/modal';
 import CardModal from '../../components/CardModal';
-import { deleteCardInList } from '../../actions/list';
 
 const EditCardModal = props => {
   const {
@@ -47,10 +46,7 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   handleEditCard: card => dispatch(editCard(card)),
-  handleDeleteCard: (listId, cardId) => {
-    dispatch(deleteCard(listId, cardId));
-    dispatch(deleteCardInList(listId, cardId));
-  },
+  handleDeleteCard: (listId, cardId) => dispatch(deleteCard(listId, cardId)),
   handleHideModal: () => dispatch(hideModal()),
 });
 

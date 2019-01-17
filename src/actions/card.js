@@ -1,6 +1,7 @@
 import { ADD_CARD, DELETE_CARD, EDIT_CARD, SELECT_CARD } from '../constants';
 
 export const addCard = ({
+  listId,
   id,
   title,
   text = null,
@@ -10,6 +11,7 @@ export const addCard = ({
 }) => ({
   type: ADD_CARD,
   payload: {
+    listId,
     id,
     title,
     text,
