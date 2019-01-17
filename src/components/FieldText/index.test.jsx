@@ -8,3 +8,13 @@ it('FieldText renders without crashing', () => {
   ReactDOM.render(<FieldText classes={{}} handleChange={jest.fn()} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+
+it('FieldText with initial state renders without crashing', () => {
+  const div = document.createElement('div');
+
+  ReactDOM.render(
+    <FieldText text="Text Card" classes={{}} handleChange={jest.fn()} />,
+    div
+  );
+  ReactDOM.unmountComponentAtNode(div);
+});

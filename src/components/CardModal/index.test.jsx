@@ -18,3 +18,18 @@ it('CardModal renders without crashing', () => {
   );
   ReactDOM.unmountComponentAtNode(div);
 });
+
+it('CardModal with initial state renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(
+    <CardModal
+      action={jest.fn()}
+      titleModal="To Do"
+      handleHideModal={jest.fn()}
+      btnText="Add card"
+      listId={uuidv4()}
+    />,
+    div
+  );
+  ReactDOM.unmountComponentAtNode(div);
+});

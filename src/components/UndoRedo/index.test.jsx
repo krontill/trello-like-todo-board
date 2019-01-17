@@ -17,3 +17,18 @@ it('UndoRedo renders without crashing', () => {
   );
   ReactDOM.unmountComponentAtNode(div);
 });
+
+it('UndoRedo with initial state renders without crashing', () => {
+  const div = document.createElement('div');
+
+  ReactDOM.render(
+    <UndoRedo
+      onRedo={jest.fn()}
+      onUndo={jest.fn()}
+      canRedo={false}
+      canUndo={false}
+    />,
+    div
+  );
+  ReactDOM.unmountComponentAtNode(div);
+});

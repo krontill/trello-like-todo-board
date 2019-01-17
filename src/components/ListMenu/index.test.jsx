@@ -21,3 +21,22 @@ it('ListMenu renders without crashing', () => {
   );
   ReactDOM.unmountComponentAtNode(div);
 });
+
+it('ListMenu with initial state renders without crashing', () => {
+  const div = document.createElement('div');
+  const listId = faker.random.uuid();
+  const listTitle = 'To Do';
+  const listCards = ['095390ad-006f-4fe4-a6ea-63e1ea2e74b9'];
+
+  ReactDOM.render(
+    <ListMenu
+      anchorEl={div}
+      open={false}
+      handleClose={jest.fn()}
+      handleDeleteList={jest.fn()}
+      list={{ id: listId, title: listTitle, cards: listCards }}
+    />,
+    div
+  );
+  ReactDOM.unmountComponentAtNode(div);
+});
