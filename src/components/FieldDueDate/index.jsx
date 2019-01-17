@@ -12,7 +12,7 @@ const FieldDueDate = props => {
       label="Due Date"
       type="date"
       defaultValue={dueDate}
-      className={classes.textField}
+      className={classes}
       InputLabelProps={{
         shrink: true,
       }}
@@ -30,11 +30,12 @@ const FieldDueDate = props => {
 
 FieldDueDate.defaultProps = {
   dueDate: '',
+  classes: '',
 };
 
 FieldDueDate.propTypes = {
   dueDate: PropTypes.string,
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  classes: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
 };
 

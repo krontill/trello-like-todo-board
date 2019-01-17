@@ -170,7 +170,7 @@ class CardModal extends React.Component {
             />
             <FieldDueDate
               dueDate={dueDate}
-              classes={classes}
+              classes={classes.textField}
               handleChange={e => this.handleChange('dueDate', e)}
             />
             <Select
