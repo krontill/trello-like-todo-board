@@ -1,32 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import faker from 'faker';
-import store from '../../store/store';
-import EditCardModal from './index';
+import moment from 'moment';
+import CardShort from './index';
 import { LABELS } from '../../constants/colors';
 
-it('EditCardModal renders without crashing', () => {
+it('CardShort renders without crashing', () => {
   const div = document.createElement('div');
   const title = faker.lorem.sentence();
   const text = faker.lorem.text();
   const priority = faker.random.arrayElement(['Low', 'Medium', 'Height']);
-  const dueDate = faker.date.future().toString();
+  const dueDate = moment(faker.date.future()).format('MMM D');
   const labels = faker.random.arrayElement([LABELS]);
   const id = faker.random.uuid();
-  const card = {
-    id,
-    title,
-    text,
-    priority,
-    dueDate,
-    labels,
-  };
+  const selectedCard = faker.random.boolean();
 
   ReactDOM.render(
-    <Provider store={store}>
-      <EditCardModal listId={id} card={card} />
-    </Provider>,
+    <CardShort
+      listId={id}
+      card={{
+        id,
+        title,
+        text,
+        priority,
+        dueDate,
+        labels,
+      }}
+      handleShowModal={jest.fn()}
+      handleSelectCard={jest.fn()}
+      selectedCard={selectedCard}
+    />,
     div
   );
   ReactDOM.unmountComponentAtNode(div);
