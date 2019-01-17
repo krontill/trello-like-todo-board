@@ -13,8 +13,12 @@ const IconLowPriority = props => {
   );
 };
 
+IconLowPriority.defaultProps = {
+  classes: '',
+};
+
 IconLowPriority.propTypes = {
-  classes: PropTypes.string.isRequired,
+  classes: PropTypes.string,
 };
 
 export default IconLowPriority;
