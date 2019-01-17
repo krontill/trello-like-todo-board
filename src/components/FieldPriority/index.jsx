@@ -6,43 +6,44 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import IconLowPriority from '../IconLowPriority';
 import IconPriorityHigh from '../IconPriorityHigh';
+import priority from '../../constants/priority';
 
 const FieldPriority = props => {
-  const { priority, classes, handleChange } = props;
+  const { selectedPriority, classes, handleChange } = props;
+
+  const priorityTemplate = priority.map(item => (
+    <MenuItem key={item} value={item === 'None' ? '' : item.toLowerCase()}>
+      {item}
+      {item === 'Low' ? <IconLowPriority classes={classes.selectIcon} /> : null}
+      {item === 'Height' ? (
+        <IconPriorityHigh classes={classes.selectIcon} />
+      ) : null}
+    </MenuItem>
+  ));
+
   return (
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor="priority">Priority</InputLabel>
       <Select
-        value={priority}
+        value={selectedPriority}
         onChange={handleChange}
         inputProps={{
           name: 'priority',
           id: 'priority',
         }}
       >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value="low">
-          Low
-          <IconLowPriority classes={classes.selectIcon} />
-        </MenuItem>
-        <MenuItem value="medium">Medium</MenuItem>
-        <MenuItem value="height">
-          Height
-          <IconPriorityHigh classes={classes.selectIcon} />
-        </MenuItem>
+        {priorityTemplate}
       </Select>
     </FormControl>
   );
 };
 
 FieldPriority.defaultProps = {
-  priority: '',
+  selectedPriority: '',
 };
 
 FieldPriority.propTypes = {
-  priority: PropTypes.string,
+  selectedPriority: PropTypes.string,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   handleChange: PropTypes.func.isRequired,
 };

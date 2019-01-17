@@ -164,7 +164,7 @@ class CardModal extends React.Component {
               handleChange={e => this.handleChange('text', e)}
             />
             <FieldPriority
-              priority={priority}
+              selectedPriority={priority}
               classes={classes}
               handleChange={e => this.handleChangeSelect(e)}
             />
