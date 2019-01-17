@@ -1,3 +1,4 @@
+import undoable from 'redux-undo';
 import { SHOW_MODAL, HIDE_MODAL } from '../constants';
 
 const initialState = {
@@ -5,10 +6,11 @@ const initialState = {
   modalProps: {},
 };
 
-export default (state = initialState, action) => {
+const modal = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_MODAL:
       return {
+        ...{},
         modalType: action.modalType,
         modalProps: action.modalProps,
       };
@@ -20,3 +22,7 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+const undoableModal = undoable(modal, { limit: 10 });
+
+export default undoableModal;
