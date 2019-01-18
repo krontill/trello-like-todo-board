@@ -27,7 +27,7 @@ const lists = (state = initialState, action) => {
         if (list.id !== action.payload.listId) return list;
 
         const newList = { ...list };
-        newList.cards.push(action.payload.id);
+        newList.cards = [...list.cards, action.payload.id];
         return newList;
       });
 
