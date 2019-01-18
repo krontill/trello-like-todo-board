@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import store from './store/store';
-import App from './container/App';
+import store from './stores/store';
+import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
