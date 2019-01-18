@@ -7,6 +7,7 @@ import {
   DELETE_LIST,
   EDIT_LIST,
   ADD_CARD,
+  MOVE_CARD_IN_LIST,
 } from '../constants';
 
 const initialList = {
@@ -67,6 +68,95 @@ describe('Lists reducer', () => {
       },
     };
     expect(lists(initialState, action)).toEqual(initialState);
+  });
+
+  it('Move card in list. List not have card id.', () => {
+    const action = {
+      type: MOVE_CARD_IN_LIST,
+      payload: {
+        selectedCard: 'other-id',
+        mapped: 1,
+      },
+    };
+    expect(lists(initialState, action)).toEqual(initialState);
+  });
+
+  it('No place to move up in list.', () => {
+    const actionMoveUp = {
+      type: MOVE_CARD_IN_LIST,
+      payload: {
+        selectedCard: initialList.cards[0],
+        mapped: 1,
+      },
+    };
+    expect(lists(initialState, actionMoveUp)).toEqual(initialState);
+  });
+
+  it('No place to move down in list.', () => {
+    const actionMoveDown = {
+      type: MOVE_CARD_IN_LIST,
+      payload: {
+        selectedCard: initialList.cards[0],
+        mapped: -1,
+      },
+    };
+    expect(lists(initialState, actionMoveDown)).toEqual(initialState);
+  });
+
+  it('Move initial card down in list.', () => {
+    const actionMoveDown = {
+      type: MOVE_CARD_IN_LIST,
+      payload: {
+        selectedCard: initialList.cards[0],
+        mapped: 1,
+      },
+    };
+    expect(
+      lists(
+        [
+          {
+            id: initialList.id,
+            title: newList.title,
+            cards: [...initialList.cards, newCard.id],
+          },
+        ],
+        actionMoveDown
+      )
+    ).toEqual([
+      {
+        id: initialList.id,
+        title: newList.title,
+        cards: [newCard.id, ...initialList.cards],
+      },
+    ]);
+  });
+
+  it('Move initial card up in list.', () => {
+    const actionMoveDown = {
+      type: MOVE_CARD_IN_LIST,
+      payload: {
+        selectedCard: initialList.cards[0],
+        mapped: -1,
+      },
+    };
+    expect(
+      lists(
+        [
+          {
+            id: initialList.id,
+            title: newList.title,
+            cards: [newCard.id, ...initialList.cards],
+          },
+        ],
+        actionMoveDown
+      )
+    ).toEqual([
+      {
+        id: initialList.id,
+        title: newList.title,
+        cards: [...initialList.cards, newCard.id],
+      },
+    ]);
   });
 
   it('Delete card in list. If list id !== payload list id.', () => {
