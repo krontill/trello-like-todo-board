@@ -1,4 +1,3 @@
-import undoable from 'redux-undo';
 import { ADD_CARD, EDIT_CARD, DELETE_CARD } from '../constants';
 
 const initialState = [
@@ -32,6 +31,4 @@ const cards = (state = initialState, action) => {
   }
 };
 
-const undoableCards = undoable(cards, { limit: 10 });
-
-export default undoableCards;
+export default cards;
