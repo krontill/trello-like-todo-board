@@ -1,4 +1,3 @@
-import undoable from 'redux-undo';
 import { CHANGE_BG } from '../constants';
 
 const initialState = {
@@ -15,6 +14,4 @@ const setting = (state = initialState, action) => {
   }
 };
 
-const undoableSetting = undoable(setting, { limit: 10 });
-
-export default undoableSetting;
+export default setting;

@@ -1,4 +1,3 @@
-import undoable from 'redux-undo';
 import uuidv4 from 'uuid/v4';
 import {
   ADD_LIST,
@@ -119,6 +118,4 @@ const lists = (state = initialState, action) => {
   }
 };
 
-const undoableLists = undoable(lists, { limit: 10 });
-
-export default undoableLists;
+export default lists;

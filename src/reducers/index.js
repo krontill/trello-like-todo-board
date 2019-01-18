@@ -8,11 +8,14 @@ import cards from './cards';
 
 const undoableCards = undoable(cards, { limit: 10 });
 const undoableModal = undoable(modal, { limit: 10 });
+const undoableLists = undoable(lists, { limit: 10 });
+const undoableSetting = undoable(setting, { limit: 10 });
+const undoableSelectCard = undoable(selectedCard, { limit: 10 });
 
 export default combineReducers({
-  lists,
+  lists: undoableLists,
   cards: undoableCards,
-  setting,
-  selectedCard,
+  setting: undoableSetting,
+  selectedCard: undoableSelectCard,
   modal: undoableModal,
 });
