@@ -1,7 +1,13 @@
 import uuidv4 from 'uuid/v4';
 import lists from './lists';
 
-import { ADD_LIST, DELETE_LIST, EDIT_LIST, ADD_CARD } from '../constants';
+import {
+  ADD_LIST,
+  DELETE_CARD,
+  DELETE_LIST,
+  EDIT_LIST,
+  ADD_CARD,
+} from '../constants';
 
 const initialList = {
   id: uuidv4(),
@@ -61,6 +67,34 @@ describe('Lists reducer', () => {
       },
     };
     expect(lists(initialState, action)).toEqual(initialState);
+  });
+
+  it('Delete card in list. If list id !== payload list id.', () => {
+    const action = {
+      type: DELETE_CARD,
+      payload: {
+        listId: 'other-id',
+        cardId: initialList.cards[0],
+      },
+    };
+    expect(lists(initialState, action)).toEqual(initialState);
+  });
+
+  it('Delete card in list.', () => {
+    const action = {
+      type: DELETE_CARD,
+      payload: {
+        listId: initialList.id,
+        cardId: initialList.cards[0],
+      },
+    };
+    expect(lists(initialState, action)).toEqual([
+      {
+        id: initialList.id,
+        title: initialList.title,
+        cards: [],
+      },
+    ]);
   });
 
   it('Delete list.', () => {
