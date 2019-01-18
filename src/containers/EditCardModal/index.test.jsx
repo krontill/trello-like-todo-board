@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import faker from 'faker';
-import store from '../../store/store';
+import store from '../../stores/store';
 import EditCardModal from './index';
 import { LABELS } from '../../constants/colors';
 

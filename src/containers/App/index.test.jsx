@@ -1,17 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import faker from 'faker';
-import store from '../../store/store';
-import AddCardModal from './index';
+import store from '../../stores/store';
+import App from './index';
 
-it('AddCardModal renders without crashing', () => {
+it('App renders without crashing', () => {
   const div = document.createElement('div');
-  const id = faker.random.uuid();
-
   ReactDOM.render(
     <Provider store={store}>
-      <AddCardModal listId={id} />
+      <App />
     </Provider>,
     div
   );
