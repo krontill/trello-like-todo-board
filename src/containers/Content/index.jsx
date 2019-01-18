@@ -62,9 +62,11 @@ class Content extends Component {
     if (!modifiers && mapped !== undefined && !!selectedCard) {
       e.stopPropagation();
       e.preventDefault();
-      if (mapped % 2 === 0)
+      if (mapped % 2 === 0) {
         handleMoveCardBetweenLists(selectedCard, mapped - 1);
-      handleMoveCardInList(selectedCard, mapped - 2);
+      } else {
+        handleMoveCardInList(selectedCard, mapped - 2);
+      }
     }
 
     if (!modifiers && e.keyCode === 13 && !!selectedCard) {
