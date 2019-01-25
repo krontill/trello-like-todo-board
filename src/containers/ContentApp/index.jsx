@@ -25,7 +25,7 @@ const map = {
   40: 3, // Down
 };
 
-class Content extends Component {
+class ContentApp extends Component {
   constructor(props) {
     super(props);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -102,11 +102,11 @@ class Content extends Component {
   }
 }
 
-Content.defaultProps = {
+ContentApp.defaultProps = {
   selectedCard: null,
 };
 
-Content.propTypes = {
+ContentApp.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleEditList: PropTypes.func.isRequired,
@@ -119,4 +119,4 @@ Content.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Container(withStyles(styles)(Content));
+export default Container(withStyles(styles)(ContentApp));

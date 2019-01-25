@@ -16,7 +16,7 @@ import mount from './mount.jpg';
 import Logo from '../../components/Logo';
 import SettingBg from '../../components/SettingBg';
 import ListModal from '../../components/ListModal';
-import Content from '../Content';
+import ContentApp from '../ContentApp';
 import UndoRedo from '../../components/UndoRedo';
 import Container from './container';
 
@@ -96,7 +96,7 @@ const App = props => {
           <ListModal action={handleAddList} />
         </div>
       </header>
-      <Content />
+      <ContentApp />
       <ModalRoot />
     </div>
   );
