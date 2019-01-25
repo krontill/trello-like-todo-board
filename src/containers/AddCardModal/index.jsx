@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addCard } from '../../actions/card';
-import { hideModal } from '../../actions/modal';
 import CardModal from '../../components/CardModal';
+import Container from './container';
 
 const AddCardModal = props => {
   const { handleAddCard, handleHideModal, listId } = props;
@@ -25,14 +23,4 @@ AddCardModal.propTypes = {
   listId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = dispatch => ({
-  handleAddCard: card => dispatch(addCard(card)),
-  handleHideModal: () => dispatch(hideModal()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddCardModal);
+export default Container(AddCardModal);

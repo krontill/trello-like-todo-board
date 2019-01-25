@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { editCard, deleteCard } from '../../actions/card';
-import { hideModal } from '../../actions/modal';
 import CardModal from '../../components/CardModal';
+import Container from './container';
 
 const EditCardModal = props => {
   const {
@@ -42,15 +40,4 @@ EditCardModal.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = dispatch => ({
-  handleEditCard: card => dispatch(editCard(card)),
-  handleDeleteCard: (listId, cardId) => dispatch(deleteCard(listId, cardId)),
-  handleHideModal: () => dispatch(hideModal()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditCardModal);
+export default Container(EditCardModal);

@@ -1,9 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import ModalRoot from '../ModalRoot';
 import {
   BLUE,
@@ -15,13 +13,12 @@ import {
 } from '../../constants/colors';
 import sea from './sea.jpg';
 import mount from './mount.jpg';
-import { addList } from '../../actions/list';
-import changeBg from '../../actions/setting';
 import Logo from '../../components/Logo';
 import SettingBg from '../../components/SettingBg';
 import ListModal from '../../components/ListModal';
 import Content from '../Content';
 import UndoRedo from '../../components/UndoRedo';
+import Container from './container';
 
 const styles = () => ({
   app: {
@@ -116,28 +113,4 @@ App.propTypes = {
   canRedo: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ setting, lists, selectedCard, cards }) => ({
-  setting: setting.present,
-  canUndo:
-    setting.past.length > 0 ||
-    lists.past.length > 0 ||
-    selectedCard.past.length > 0 ||
-    cards.past.length > 0,
-  canRedo:
-    setting.future.length > 0 ||
-    lists.future.length > 0 ||
-    selectedCard.future.length > 0 ||
-    cards.future.length > 0,
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleAddList: list => dispatch(addList(list)),
-  handleChangeBg: bg => dispatch(changeBg(bg)),
-  onUndo: () => dispatch(UndoActionCreators.undo()),
-  onRedo: () => dispatch(UndoActionCreators.redo()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(App));
+export default Container(withStyles(styles)(App));

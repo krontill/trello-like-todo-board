@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { connect } from 'react-redux';
 import ListCards from '../../components/ListCards';
-import {
-  deleteList,
-  editList,
-  moveCardInList,
-  moveCardBetweenLists,
-} from '../../actions/list';
-import { showModal } from '../../actions/modal';
-import { selectCard } from '../../actions/card';
 import { EDIT_CARD_MODAL } from '../../constants';
+import Container from './container';
 
 const styles = theme => ({
   content: {
@@ -127,24 +119,4 @@ Content.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const mapStateToProps = ({ lists, selectedCard, cards }) => ({
-  lists: lists.present,
-  selectedCard: selectedCard.present,
-  cards: cards.present,
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleEditList: (id, newTitle) => dispatch(editList(id, newTitle)),
-  handleShowModal: (modalType, modalProps) =>
-    dispatch(showModal(modalType, modalProps)),
-  handleDeleteList: listId => dispatch(deleteList(listId)),
-  handleMoveCardInList: (id, mapped) => dispatch(moveCardInList(id, mapped)),
-  handleMoveCardBetweenLists: (id, mapped) =>
-    dispatch(moveCardBetweenLists(id, mapped)),
-  handleSelectCard: id => dispatch(selectCard(id)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Content));
+export default Container(withStyles(styles)(Content));
