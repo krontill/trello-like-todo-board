@@ -46,12 +46,12 @@ const lists = (state = initialState, action) => {
           if (index === newSelectedCardIndex)
             return action.payload.selectedCard;
 
-          if (
+          const validIndex =
             index === selectedCardIndex &&
             newSelectedCardIndex >= 0 &&
-            newSelectedCardIndex < array.length
-          )
-            return list.cards[newSelectedCardIndex];
+            newSelectedCardIndex < array.length;
+
+          if (validIndex) return list.cards[newSelectedCardIndex];
 
           return card;
         });
