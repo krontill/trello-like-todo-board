@@ -4,19 +4,7 @@ import { withStyles } from '@material-ui/core';
 import ListCards from '../../components/ListCards';
 import { EDIT_CARD_MODAL } from '../../constants';
 import Container from './container';
-
-const styles = theme => ({
-  content: {
-    flex: '1 0 100%',
-    padding: '4px',
-    display: 'flex',
-    alignItems: 'flex-start',
-    overflowX: 'auto',
-    [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column',
-    },
-  },
-});
+import styles from './styles';
 
 const map = {
   37: 0, // Left
