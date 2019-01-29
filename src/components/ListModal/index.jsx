@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
-import { withStyles } from '@material-ui/core';
 import AddBox from '@material-ui/icons/AddBox';
 import IconButton from '@material-ui/core/IconButton';
 import ModalTitle from '../ModalTitle';
-import FieldTitle from '../FieldTitle';
 import FieldButton from '../FieldButton';
-import styles from './styles';
+import { StyledPaper, StyledFieldTitle } from './styles';
 
 class ListModal extends React.Component {
   constructor(props) {
@@ -28,7 +26,7 @@ class ListModal extends React.Component {
   }
 
   render() {
-    const { classes, action } = this.props;
+    const { action } = this.props;
     const { open, title } = this.state;
 
     const icon = (
@@ -59,15 +57,14 @@ class ListModal extends React.Component {
           open={open}
           onClose={() => this.handleClose()}
         >
-          <div className={classes.paper}>
+          <StyledPaper>
             <ModalTitle titleModal="Enter list title" />
-            <FieldTitle
-              classes={classes}
+            <StyledFieldTitle
               title={title}
               handleChange={e => this.handleChange(e)}
             />
             {btn}
-          </div>
+          </StyledPaper>
         </Modal>
       </div>
     );
@@ -75,8 +72,7 @@ class ListModal extends React.Component {
 }
 
 ListModal.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   action: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(ListModal);
+export default ListModal;

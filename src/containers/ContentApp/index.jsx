@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
 import ListCards from '../../components/ListCards';
 import { EDIT_CARD_MODAL } from '../../constants';
 import Container from './container';
-import styles from './styles';
+import StyledContent from './styles';
 
 const map = {
   37: 0, // Left
@@ -63,7 +62,6 @@ class ContentApp extends Component {
 
   render() {
     const {
-      classes,
       lists,
       handleEditList,
       handleShowModal,
@@ -86,7 +84,7 @@ class ContentApp extends Component {
       />
     ));
 
-    return <div className={classes.content}>{listsTemplate}</div>;
+    return <StyledContent>{listsTemplate}</StyledContent>;
   }
 }
 
@@ -95,7 +93,6 @@ ContentApp.defaultProps = {
 };
 
 ContentApp.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleEditList: PropTypes.func.isRequired,
   handleShowModal: PropTypes.func.isRequired,
@@ -107,4 +104,4 @@ ContentApp.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Container(withStyles(styles)(ContentApp));
+export default Container(ContentApp);

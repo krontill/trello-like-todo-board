@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
 import Title from '@material-ui/icons/Title';
+import StyledTextField from './styles';
 
 const FieldTitle = props => {
-  const { title, classes, handleChange } = props;
+  const { title, handleChange } = props;
   return (
-    <TextField
+    <StyledTextField
       required
       id="title"
       label="Required title"
-      className={classes.textField}
       value={title}
       onChange={handleChange}
       InputProps={{
@@ -31,7 +30,6 @@ FieldTitle.defaultProps = {
 
 FieldTitle.propTypes = {
   title: PropTypes.string,
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 

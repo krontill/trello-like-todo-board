@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled, ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 const theme = createMuiTheme({
   typography: {
@@ -8,19 +9,18 @@ const theme = createMuiTheme({
   },
 });
 
-const StyledContent = styled(({ ...props }) => (
+const StyledTextField = styled(({ ...props }) => (
   <ThemeProvider theme={theme}>
-    <div {...props} />
+    <TextField {...props} />
   </ThemeProvider>
 ))({
-  flex: '1 0 100%',
-  padding: '4px',
   display: 'flex',
-  alignItems: 'flex-start',
-  overflowX: 'auto',
+  marginTop: theme.spacing.unit * 2,
+  marginBottom: theme.spacing.unit * 4,
   [theme.breakpoints.down('xs')]: {
-    flexDirection: 'column',
+    marginTop: theme.spacing.unit * 1.5,
+    marginBottom: theme.spacing.unit * 3,
   },
 });
 
-export default StyledContent;
+export default StyledTextField;

@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Input from '@material-ui/core/Input';
 import CardShort from '../CardShort';
 import ListMenu from '../ListMenu';
 import { ADD_CARD_MODAL } from '../../constants';
-import styles from './styles';
+import {
+  StyledCard,
+  StyledCardActionArea,
+  StyledHeaderContent,
+  StyledTitle,
+  StyledInput,
+} from './styles';
 
 class ListCards extends React.Component {
   constructor(props) {
@@ -49,7 +49,6 @@ class ListCards extends React.Component {
 
   render() {
     const {
-      classes,
       list,
       handleShowModal,
       handleDeleteList,
@@ -91,22 +90,20 @@ class ListCards extends React.Component {
       });
 
     const title = (
-      <Typography
+      <StyledTitle
         variant="headline"
         component="span"
-        className={classes.title}
         onClick={() => this.handleClickTitle()}
         onFocus={() => this.handleClickTitle()}
         tabIndex="0"
       >
         {list.title}
-      </Typography>
+      </StyledTitle>
     );
 
     const NewTitle = (
       <ClickAwayListener onClickAway={() => this.setNewTitle(list.id, value)}>
-        <Input
-          className={classes.input}
+        <StyledInput
           multiline
           value={value}
           onChange={event => this.handleChange(event)}
@@ -116,9 +113,8 @@ class ListCards extends React.Component {
     );
 
     return (
-      <Card className={classes.card}>
-        <CardHeader
-          classes={{ content: classes.headerContent }}
+      <StyledCard>
+        <StyledHeaderContent
           variant="h2"
           action={icon}
           title={newTitle ? NewTitle : title}
@@ -133,13 +129,12 @@ class ListCards extends React.Component {
           />
         )}
         <CardContent>{cardsTemplate}</CardContent>
-        <CardActionArea
-          className={classes.cardActionArea}
+        <StyledCardActionArea
           onClick={() => handleShowModal(ADD_CARD_MODAL, { listId: list.id })}
         >
           Add a card
-        </CardActionArea>
-      </Card>
+        </StyledCardActionArea>
+      </StyledCard>
     );
   }
 }
@@ -149,7 +144,6 @@ ListCards.defaultProps = {
 };
 
 ListCards.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   list: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string,
@@ -163,4 +157,4 @@ ListCards.propTypes = {
   selectedCard: PropTypes.string,
 };
 
-export default withStyles(styles)(ListCards);
+export default ListCards;

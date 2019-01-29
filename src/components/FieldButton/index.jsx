@@ -1,23 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
+import StyledFieldButton from './styles';
 
 const FieldButton = props => {
-  const { btnText, handleClick, classes } = props;
+  const { btnText, handleClick } = props;
   return (
-    <Button variant="contained" onClick={handleClick} className={classes}>
+    <StyledFieldButton variant="contained" onClick={handleClick}>
       {btnText}
-    </Button>
+    </StyledFieldButton>
   );
-};
-
-FieldButton.defaultProps = {
-  classes: '',
 };
 
 FieldButton.propTypes = {
   btnText: PropTypes.string.isRequired,
-  classes: PropTypes.string,
   handleClick: PropTypes.func.isRequired,
 };
 

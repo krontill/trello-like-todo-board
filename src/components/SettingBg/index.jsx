@@ -1,13 +1,10 @@
 import React from 'react';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import ColorLens from '@material-ui/icons/ColorLens';
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
-import classNames from 'classnames';
 import { LABELS } from '../../constants/colors';
-import styles from './styles';
+import StyledMenuItem from './styles';
 
 const optionsImages = ['Mount', 'Sea'];
 
@@ -29,7 +26,7 @@ class SettingBg extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { handleChangeBg, classes } = this.props;
+    const { handleChangeBg } = this.props;
 
     const icon = (
       <IconButton
@@ -43,24 +40,19 @@ class SettingBg extends React.Component {
       </IconButton>
     );
 
-    const classMenuItem = option =>
-      classNames(classes.item, {
-        [classes[`item--${option.toLowerCase()}`]]: true,
-      });
-
     const options = [...LABELS, ...optionsImages];
 
     const menuItemTemplate = options.map(option => (
-      <MenuItem
+      <StyledMenuItem
         key={option}
         onClick={() => {
           handleChangeBg(option.toLowerCase());
           this.handleClose();
         }}
-        className={classMenuItem(option)}
+        background={option.toLowerCase()}
       >
         {option}
-      </MenuItem>
+      </StyledMenuItem>
     ));
 
     return (
@@ -81,7 +73,6 @@ class SettingBg extends React.Component {
 
 SettingBg.propTypes = {
   handleChangeBg: PropTypes.func.isRequired,
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export default withStyles(styles)(SettingBg);
+export default SettingBg;

@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
 import Subject from '@material-ui/icons/Subject';
+import StyledTextField from './styles';
 
 const FieldText = props => {
-  const { text, classes, handleChange } = props;
+  const { text, handleChange } = props;
   return (
-    <TextField
+    <StyledTextField
       multiline
       id="text"
       label="Text"
-      className={classes.textField}
       value={text}
       onChange={handleChange}
       InputProps={{
@@ -31,7 +30,6 @@ FieldText.defaultProps = {
 
 FieldText.propTypes = {
   text: PropTypes.string,
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 

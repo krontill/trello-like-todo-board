@@ -1,7 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import ModalRoot from '../ModalRoot';
 import Logo from '../../components/Logo';
 import SettingBg from '../../components/SettingBg';
@@ -9,11 +7,10 @@ import ListModal from '../../components/ListModal';
 import ContentApp from '../ContentApp';
 import UndoRedo from '../../components/UndoRedo';
 import Container from './container';
-import styles from './styles';
+import { StyledApp, StyledHeader, StyledToolBar } from './styles';
 
 const App = props => {
   const {
-    classes,
     setting,
     handleAddList,
     handleChangeBg,
@@ -23,16 +20,12 @@ const App = props => {
     canRedo,
   } = props;
 
-  const classApp = classNames(classes.app, {
-    [classes[`app--${setting.bg}`]]: true,
-  });
-
   return (
-    <div className={classApp}>
-      <header className={classes.header}>
+    <StyledApp background={setting.bg}>
+      <StyledHeader>
         <div className="search" />
         <Logo />
-        <div className={classes.toolBar}>
+        <StyledToolBar>
           <UndoRedo
             onUndo={onUndo}
             canUndo={canUndo}
@@ -41,16 +34,15 @@ const App = props => {
           />
           <SettingBg handleChangeBg={handleChangeBg} />
           <ListModal action={handleAddList} />
-        </div>
-      </header>
+        </StyledToolBar>
+      </StyledHeader>
       <ContentApp />
       <ModalRoot />
-    </div>
+    </StyledApp>
   );
 };
 
 App.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   setting: PropTypes.objectOf(PropTypes.string).isRequired,
   handleAddList: PropTypes.func.isRequired,
   handleChangeBg: PropTypes.func.isRequired,
@@ -60,4 +52,4 @@ App.propTypes = {
   canRedo: PropTypes.bool.isRequired,
 };
 
-export default Container(withStyles(styles)(App));
+export default Container(App);

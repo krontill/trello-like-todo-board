@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { install } from '@material-ui/styles';
 import store from './stores/store';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+
+install();
 
 ReactDOM.render(
   <Provider store={store}>

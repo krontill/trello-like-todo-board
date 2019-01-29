@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
-import { withStyles } from '@material-ui/core';
-import Select from 'react-select';
-import classNames from 'classnames';
 import uuidv4 from 'uuid/v4';
 import ModalTitle from '../ModalTitle';
 import FieldTitle from '../FieldTitle';
@@ -13,7 +10,7 @@ import FieldDueDate from '../FieldDueDate';
 import FieldButton from '../FieldButton';
 import createLablesOptions from '../../utils/createLablesOptions';
 import { LABELS } from '../../constants/colors';
-import styles from './styles';
+import { StyledSelect, StyledPaper } from './styles';
 
 class CardModal extends React.Component {
   constructor(props) {
@@ -47,7 +44,6 @@ class CardModal extends React.Component {
 
   render() {
     const {
-      classes,
       action,
       titleModal,
       btnText,
@@ -61,7 +57,7 @@ class CardModal extends React.Component {
     const btn = title && title.trim() && (
       <FieldButton
         btnText={btnText}
-        classes={classes.btn}
+        margin="right"
         handleClick={() => {
           action({
             id: (card && card.id) || uuidv4(),
@@ -90,11 +86,6 @@ class CardModal extends React.Component {
     const options = createLablesOptions(LABELS);
     const selectOptions = cardLabels && createLablesOptions(cardLabels);
 
-    const classSelect = classNames({
-      [classes.selectField]: true,
-      'basic-multi-select': true,
-    });
-
     return (
       <div>
         <Modal
@@ -102,30 +93,25 @@ class CardModal extends React.Component {
           aria-labelledby="modal-title"
           onClose={() => handleHideModal()}
         >
-          <div className={classes.paper}>
+          <StyledPaper>
             <ModalTitle titleModal={titleModal} />
             <FieldTitle
               title={title}
-              classes={classes}
               handleChange={e => this.handleChange('title', e)}
             />
             <FieldText
               text={text}
-              classes={classes}
               handleChange={e => this.handleChange('text', e)}
             />
             <FieldPriority
               selectedPriority={priority}
-              classes={classes}
               handleChange={e => this.handleChangeSelect(e)}
             />
             <FieldDueDate
               dueDate={dueDate}
-              classes={classes.textField}
               handleChange={e => this.handleChange('dueDate', e)}
             />
-            <Select
-              className={classSelect}
+            <StyledSelect
               options={options}
               placeholder="Select labels..."
               isMulti
@@ -137,7 +123,7 @@ class CardModal extends React.Component {
             />
             {btn}
             {btnDelete}
-          </div>
+          </StyledPaper>
         </Modal>
       </div>
     );
@@ -150,7 +136,6 @@ CardModal.defaultProps = {
 };
 
 CardModal.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   action: PropTypes.func.isRequired,
   handleDeleteCard: PropTypes.func,
   handleHideModal: PropTypes.func.isRequired,
@@ -167,4 +152,4 @@ CardModal.propTypes = {
   }),
 };
 
-export default withStyles(styles)(CardModal);
+export default CardModal;
