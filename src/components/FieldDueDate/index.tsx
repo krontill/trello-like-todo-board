@@ -1,10 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconDueDate from '../IconDueDate';
 import StyledTextField from './styles';
 
-const FieldDueDate = props => {
+interface FieldDueDateProps {
+  dueDate?: string;
+  handleChange: (e: React.SyntheticEvent<HTMLInputElement>) => void;
+}
+
+const FieldDueDate = (props: FieldDueDateProps) => {
   const { dueDate, handleChange } = props;
   return (
     <StyledTextField
@@ -25,15 +29,6 @@ const FieldDueDate = props => {
       }}
     />
   );
-};
-
-FieldDueDate.defaultProps = {
-  dueDate: '',
-};
-
-FieldDueDate.propTypes = {
-  dueDate: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
 };
 
 export default FieldDueDate;

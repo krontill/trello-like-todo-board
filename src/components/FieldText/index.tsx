@@ -1,10 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Subject from '@material-ui/icons/Subject';
 import StyledTextField from './styles';
 
-const FieldText = props => {
+interface FieldTextProps {
+  text?: string;
+  handleChange: (e: React.SyntheticEvent<HTMLInputElement>) => void;
+}
+
+const FieldText = (props: FieldTextProps) => {
   const { text, handleChange } = props;
   return (
     <StyledTextField
@@ -22,15 +26,6 @@ const FieldText = props => {
       }}
     />
   );
-};
-
-FieldText.defaultProps = {
-  text: '',
-};
-
-FieldText.propTypes = {
-  text: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
 };
 
 export default FieldText;

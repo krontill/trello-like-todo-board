@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -10,7 +9,12 @@ import {
   StyledIconPriorityHigh,
 } from './styles';
 
-const FieldPriority = props => {
+interface FieldPriorityProps {
+  selectedPriority?: string;
+  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const FieldPriority = (props: FieldPriorityProps) => {
   const { selectedPriority, handleChange } = props;
 
   const priorityTemplate = priority.map(item => (
@@ -36,15 +40,6 @@ const FieldPriority = props => {
       </Select>
     </StyledFieldPriority>
   );
-};
-
-FieldPriority.defaultProps = {
-  selectedPriority: '',
-};
-
-FieldPriority.propTypes = {
-  selectedPriority: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
 };
 
 export default FieldPriority;
