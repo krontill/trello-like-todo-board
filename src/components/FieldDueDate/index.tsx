@@ -31,4 +31,8 @@ const FieldDueDate = (props: FieldDueDateProps) => {
   );
 };
 
+FieldDueDate.defaultProps = {
+  dueDate: '',
+};
+
 export default FieldDueDate;

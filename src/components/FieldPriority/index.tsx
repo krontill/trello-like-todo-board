@@ -42,4 +42,8 @@ const FieldPriority = (props: FieldPriorityProps) => {
   );
 };
 
+FieldPriority.defaultProps = {
+  selectedPriority: '',
+};
+
 export default FieldPriority;

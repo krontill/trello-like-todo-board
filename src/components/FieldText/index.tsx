@@ -28,4 +28,8 @@ const FieldText = (props: FieldTextProps) => {
   );
 };
 
+FieldText.defaultProps = {
+  text: '',
+};
+
 export default FieldText;
