@@ -9,13 +9,18 @@ const MODAL_COMPONENTS = {
   [`${EDIT_CARD_MODAL}`]: EditCardModal,
 };
 
-const ModalRoot = ({ modalType, modalProps }) => {
+interface ModalRootProps {
+  modalType: null | string;
+  modalProps: {};
+}
+
+const ModalRoot = ({ modalType, modalProps }: ModalRootProps) => {
   if (!modalType) return null;
 
   const SpecificModal = MODAL_COMPONENTS[modalType];
   return <SpecificModal {...modalProps} />;
 };
 
-const mapStateToProps = state => state.modal.present;
+const mapStateToProps = (state: any) => state.modal.present;
 
 export default connect(mapStateToProps)(ModalRoot);

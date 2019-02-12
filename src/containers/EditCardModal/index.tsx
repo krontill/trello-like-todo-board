@@ -3,7 +3,22 @@ import PropTypes from 'prop-types';
 import CardModal from '../../components/CardModal';
 import Container from './container';
 
-const EditCardModal = props => {
+interface EditCardModalProps {
+  listId: string;
+  card: {
+    id: string;
+    title: string;
+    text?: string;
+    priority?: string;
+    dueDate?: string;
+    labels?: string[];
+  };
+  handleEditCard: (card: string) => void;
+  handleHideModal: () => void;
+  handleDeleteCard: (listId: string, cardId: string) => void;
+}
+
+const EditCardModal = (props: EditCardModalProps) => {
   const {
     handleEditCard,
     handleHideModal,

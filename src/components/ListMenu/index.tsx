@@ -1,9 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const ListMenu = props => {
+interface ListMenuProps {
+  anchorEl: HTMLElement;
+  open: boolean;
+  handleClose: () => void;
+  handleDeleteList: (id: string) => void;
+  list: {
+    id: string,
+    title?: string,
+    cards?: string[]
+  }
+}
+
+const ListMenu = (props: ListMenuProps) => {
   const { anchorEl, open, handleClose, list, handleDeleteList } = props;
 
   const options = [
@@ -33,18 +44,6 @@ const ListMenu = props => {
       ))}
     </Menu>
   );
-};
-
-ListMenu.propTypes = {
-  anchorEl: PropTypes.objectOf(PropTypes.object).isRequired,
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  list: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string,
-    cards: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
-  handleDeleteList: PropTypes.func.isRequired,
 };
 
 export default ListMenu;

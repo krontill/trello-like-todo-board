@@ -1,8 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
 
-const IconPriorityHigh = props => {
+interface IconPriorityHighProps {
+  classes?: string;
+}
+
+const IconPriorityHigh = (props: IconPriorityHighProps) => {
   const { classes } = props;
   return (
     <PriorityHigh
@@ -16,10 +19,6 @@ const IconPriorityHigh = props => {
 
 IconPriorityHigh.defaultProps = {
   classes: '',
-};
-
-IconPriorityHigh.propTypes = {
-  classes: PropTypes.string,
 };
 
 export default IconPriorityHigh;

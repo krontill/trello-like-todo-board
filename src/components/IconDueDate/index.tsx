@@ -1,8 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import AccessTime from '@material-ui/icons/AccessTime';
 
-const IconDueDate = props => {
+interface IconDueDateProps {
+  classes?: string;
+}
+
+const IconDueDate = (props: IconDueDateProps) => {
   const { classes } = props;
   return (
     <AccessTime
@@ -15,10 +18,6 @@ const IconDueDate = props => {
 
 IconDueDate.defaultProps = {
   classes: '',
-};
-
-IconDueDate.propTypes = {
-  classes: PropTypes.string,
 };
 
 export default IconDueDate;

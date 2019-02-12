@@ -1,8 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import LowPriority from '@material-ui/icons/LowPriority';
 
-const IconLowPriority = props => {
+interface IconLowPriorityProps {
+  classes?: string;
+}
+
+const IconLowPriority = (props: IconLowPriorityProps) => {
   const { classes } = props;
   return (
     <LowPriority
@@ -15,10 +18,6 @@ const IconLowPriority = props => {
 
 IconLowPriority.defaultProps = {
   classes: '',
-};
-
-IconLowPriority.propTypes = {
-  classes: PropTypes.string,
 };
 
 export default IconLowPriority;

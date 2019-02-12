@@ -1,9 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CardModal from '../../components/CardModal';
 import Container from './container';
 
-const AddCardModal = props => {
+interface AddCardModalProps {
+  listId: string;
+  handleAddCard: () => void;
+  handleHideModal: () => void;
+}
+
+const AddCardModal = (props: AddCardModalProps) => {
   const { handleAddCard, handleHideModal, listId } = props;
 
   return (
@@ -15,12 +20,6 @@ const AddCardModal = props => {
       btnText="Add card"
     />
   );
-};
-
-AddCardModal.propTypes = {
-  handleAddCard: PropTypes.func.isRequired,
-  handleHideModal: PropTypes.func.isRequired,
-  listId: PropTypes.string.isRequired,
 };
 
 export default Container(AddCardModal);

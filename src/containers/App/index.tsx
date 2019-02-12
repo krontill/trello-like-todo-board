@@ -9,7 +9,19 @@ import UndoRedo from '../../components/UndoRedo';
 import Container from './container';
 import { StyledApp, StyledHeader, StyledToolBar } from './styles';
 
-const App = props => {
+interface AppProps {
+  setting: {
+    bg: string
+  };
+  handleAddList: (list: string) => void;
+  handleChangeBg: (bg: string) => void;
+  onUndo: () => void;
+  onRedo: () => void;
+  canUndo: boolean;
+  canRedo: boolean;
+}
+
+const App = (props: AppProps) => {
   const {
     setting,
     handleAddList,
@@ -37,7 +49,7 @@ const App = props => {
         </StyledToolBar>
       </StyledHeader>
       <ContentApp />
-      <ModalRoot />
+      <ModalRoot modalType={null} modalProps/>
     </StyledApp>
   );
 };

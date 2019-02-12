@@ -1,10 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Title from '@material-ui/icons/Title';
 import StyledTextField from './styles';
 
-const FieldTitle = props => {
+interface FieldTitleProps {
+  title?: string;
+  handleChange: (e: React.SyntheticEvent<HTMLInputElement>) => void;
+}
+
+const FieldTitle = (props: FieldTitleProps) => {
   const { title, handleChange } = props;
   return (
     <StyledTextField
@@ -26,11 +30,6 @@ const FieldTitle = props => {
 
 FieldTitle.defaultProps = {
   title: '',
-};
-
-FieldTitle.propTypes = {
-  title: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
 };
 
 export default FieldTitle;
